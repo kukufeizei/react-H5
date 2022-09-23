@@ -78,7 +78,7 @@ const Mine: FC = () => {
           </Grid>
           <div className={styles.user_sign}>
             <span>签名:</span>
-            <span>再给我两分钟 让我把记忆结成冰哈哈是的</span>
+            <span>peace and love</span>
           </div>
         </div>
       </div>
