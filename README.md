@@ -1,8 +1,9 @@
-# React-ts
+# React-ts-h5
 
 ## 说明
 
-**该项目是由 Vite 构建,基于 React Hooks 框架配合 Typescript 语言的 H5 端快速开发的模板项目,该项目适配屏幕使用的`postcss-px-to-viewport`直接写 px 自动转换为 vw 或者 rem,
+**该项目是由 Vite 构建,基于 React Hooks 框架配合 Typescript 语言的 H5 端开发项目,
+该项目适配屏幕使用的`postcss-px-to-viewport`直接写 px 自动转换为 vw 或者 rem,
 项目也添加了路由切换动画,适配`chrome safari底部工具栏`**
 
 
@@ -96,8 +97,10 @@ https://www.iconfont.cn/manage/index?manage_type=myprojects&projectId=2119875
 
 组件文件夹采用大驼峰
 .tsx .less 都用小驼峰
+类名可用_ 命名
 
 公共类型写在typings
+单独类型放在组件目录下 名称为type.ts
 
 
 
