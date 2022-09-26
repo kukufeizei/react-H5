@@ -7,3 +7,8 @@ export interface TabsItemType {
 export interface PropsTypes {
   tabsItem: TabsItemType[];
 }
+
+export interface ItemType {
+  img?: string;
+  title?: string;
+}
