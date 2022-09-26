@@ -43,9 +43,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                 title: 'pubuliuhaha'
             }
         ]
-        setList((list) => {
-            return [...list, ...result]
-        })
+        setList(result)
     }
 
 
