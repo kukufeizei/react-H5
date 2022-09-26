@@ -30,6 +30,7 @@ specifiers:
   less-vars-to-js: ^1.3.0
   lib-flexible: ^0.3.2
   lint-staged: ^11.1.2
+  macy: ^2.5.1
   postcss: ^8.4.5
   postcss-pxtorem: ^6.0.0
   prettier: ^2.4.0
@@ -51,6 +52,7 @@ dependencies:
   axios: 0.21.4
   history: 5.3.0
   lib-flexible: 0.3.2
+  macy: 2.5.1
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-router-dom: 6.4.0_sfoxds7t5ydpegc3knd667wn6m
@@ -2855,6 +2857,11 @@ packages:
     resolution: {integrity: sha512-0ckx7ZHRPqb0oUm8zNr+90mtf9DQB60H1wMCjBtfi62Kl3a7JbHob6gA2bC+xRvZoOL+1hzUK8jeuEIQE8svEQ==}
     hasBin: true
     dev: true
+
+  /macy/2.5.1:
+    resolution: {integrity: sha512-+y4WYyh3rl4G8UczZP30pXxhLQRZ941QcaDmWoGefzUBXdwNW8TOhjjN1g5i/VG3SmiSsHgpjVXhlnZ84P2QMw==}
+    engines: {node: '>= 0.9'}
+    dev: false
 
   /magic-string/0.25.9:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}

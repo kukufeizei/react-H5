@@ -10,7 +10,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'react-hooks'],
   rules: {
-    "no-use-before-define": 'off',
+    "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     "react/self-closing-comp": ["error"],
     'react/prop-types': 'off',

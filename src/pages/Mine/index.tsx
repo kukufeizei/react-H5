@@ -1,20 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
-import { memo, FC, useState } from 'react';
-import { Avatar, Grid, Button, Space, Tabs, Badge } from 'antd-mobile';
+import { memo, FC } from 'react';
+import { Avatar, Grid, Button, Space } from 'antd-mobile';
 import { UserContactOutline, SetOutline } from 'antd-mobile-icons'
-import type { tabsItem } from './type'
-import Item from '@/components/Item'
 import styles from './index.module.less';
-
+import BasicTabs from '@/components/BasicTabs';
+import type { TabsItemType } from '@/components/BasicTabs/type'
 const img = 'https://images.unsplash.com/photo-1548532928-b34e3be62fc6?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
 
 
 
 const Mine: FC = () => {
-
-  const [tabs, setTabs] = useState<string>('question')
-
-  const tabsItem: tabsItem[] = [
+  const tabsItem: TabsItemType[] = [
     {
       title: '问题',
       count: 1,
@@ -31,6 +28,7 @@ const Mine: FC = () => {
       key: 'star'
     }
   ]
+
   return (
     <div className={styles.mine}>
       <div className={styles.pd15}>
@@ -82,29 +80,9 @@ const Mine: FC = () => {
           </div>
         </div>
       </div>
-      <div>
-        <Tabs
-          defaultActiveKey={tabs}
-          onChange={key => {
-            setTabs(key)
-          }}
-        >
-          {tabsItem.map(item => (
-            <Tabs.Tab title={
-              <Badge content={item.count || ''} style={{ '--right': '-10px', '--top': '8px' }}>
-                {item.title}
-              </Badge>
-            } key={item.key}
-            />
-          ))}
-
-        </Tabs>
+      <div style={{ flex: 1 }}>
+        <BasicTabs tabsItem={tabsItem} />
       </div>
-      {
-        <Item type={tabs} />
-      }
-
-
     </div>
   );
 };
