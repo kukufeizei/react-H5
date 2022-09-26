@@ -78,7 +78,7 @@ const Mine: FC = () => {
           </Grid>
           <div className={styles.user_sign}>
             <span>签名:</span>
-            <span>peace and love</span>
+            <span>世界和平</span>
           </div>
         </div>
       </div>
