@@ -100,7 +100,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
     }, [list])
 
     // 加載更多
-    async function loadMore() {
+    const loadMore = async () => {
         let append: ItemType[] = []
         if (list.length < 15) {
             append = [
