@@ -79,3 +79,13 @@ export const setWindowHeight = () => {
     .getElementsByTagName('body')[0]
     .style.setProperty('--height-primary', `${windowHeight}px`);
 };
+
+/**
+ * 随机颜色
+ */
+
+export const randomColor = () => {
+  return new Array(7).fill('#').reduce((prev, cur) => {
+    return prev + Math.floor(Math.random() * 16).toString(16);
+  });
+};

@@ -11,4 +11,6 @@ export interface PropsTypes {
 export interface ItemType {
   img?: string;
   title?: string;
+  name?: string;
+  count?: number;
 }

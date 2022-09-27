@@ -6,7 +6,7 @@ import { UserContactOutline, SetOutline } from 'antd-mobile-icons'
 import styles from './index.module.less';
 import BasicTabs from '@/components/BasicTabs';
 import type { TabsItemType } from '@/components/BasicTabs/type'
-const img = 'https://images.unsplash.com/photo-1548532928-b34e3be62fc6?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
+const img = 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.lizhi123.net%2F%3Ftag%3Da%26url%3Dmmbizz-zqpicz-zcn%2Fmmbiz_jpg%2FutK2icX3iaTygdv9hUQiaLqM5cCPgbXBTsTg1icv0y82uqib8swBHrx7ZUEo8STMjQIsAQXrjrpc9OIZHxtIljZ5ecA%2F640%3Fwx_fmt%3Djpeg&refer=http%3A%2F%2Fimg.lizhi123.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1666856219&t=12d6f545f90140f961bfccfd4bb81687'
 
 
 
@@ -76,11 +76,11 @@ const Mine: FC = () => {
           </Grid>
           <div className={styles.user_sign}>
             <span>签名:</span>
-            <span>世界和平</span>
+            <span style={{ marginLeft: '5px' }}>东汉末年分三国</span>
           </div>
         </div>
       </div>
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1, overflowY: 'auto' }}>
         <BasicTabs tabsItem={tabsItem} />
       </div>
     </div>
