@@ -5,7 +5,8 @@ export interface TabsItemType {
 }
 
 export interface PropsTypes {
-  tabsItem: TabsItemType[];
+  tabsItem?: TabsItemType[];
+  tabsColor?: string;
 }
 
 export interface ItemType {

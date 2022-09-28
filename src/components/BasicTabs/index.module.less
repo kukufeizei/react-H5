@@ -17,7 +17,6 @@
 
     :global(.adm-tabs-tab) {
         margin: 0;
-        font-weight: bold;
         font-size: 30px;
         color: @hint-color;
     }
@@ -34,6 +33,13 @@
     :global(.adm-tabs-tab-wrapper) {
         padding: 0;
     }
+
+
+    :global(.adm-list-body) {
+        border: 0;
+        background-color: @background-color;
+    }
+
 }
 
 .macy_container {
@@ -42,10 +48,12 @@
     li {
         width: 50%;
         border: 1px solid #D8D8D8;
+        border-radius: 20px;
 
         >img {
             width: 100%;
             padding: 10px;
+            border-radius: 20px;
         }
 
         >p {

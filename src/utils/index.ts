@@ -89,3 +89,56 @@ export const randomColor = () => {
     return prev + Math.floor(Math.random() * 16).toString(16);
   });
 };
+
+/**
+ * 防抖
+ */
+
+export const debounce = (fn: any, wait: any, time: number) => {
+  let previous: any = null; // 记录上一次运行的时间
+  let timer: any = null;
+  return function () {
+    const now = +new Date();
+    if (!previous) previous = now;
+    // 当上一次执行的时间与当前的时间差大于设置的执行间隔时长的话，就主动执行一次
+    if (now - previous > time) {
+      clearTimeout(timer);
+      fn();
+      previous = now; // 执行函数后，马上记录当前时间
+    } else {
+      // 否则重新开始新一轮的计时
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        fn();
+      }, wait);
+    }
+  };
+};
+
+export const throttle = (fn: any, time: number) => {
+  const _self: any = fn;
+  let timer: any = null;
+  let firstTime = true; // 记录是否是第一次执行的flag
+
+  return function () {
+    const args = arguments; // 解决闭包传参问题
+    const _me = this; // 解决上下文丢失问题
+
+    if (firstTime) {
+      // 若是第一次，则直接执行
+      _self.apply(_me, args);
+      firstTime = false;
+      return;
+    }
+    if (timer) {
+      // 定时器存在，说明有事件监听器在执行，直接返回
+      return false;
+    }
+
+    timer = setTimeout(function () {
+      clearTimeout(timer);
+      timer = null;
+      _self.apply(_me, args);
+    }, time || 500);
+  };
+};
