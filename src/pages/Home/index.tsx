@@ -36,7 +36,7 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <BasicTabs tabsItem={tabsItem} tabsColor='#EEF2F3' />
+      <BasicTabs tabsItem={tabsItem} tabsColor='#EEF2F3' tabsTop={40} />
     </div >
   );
 };

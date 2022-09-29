@@ -1,22 +1,10 @@
+/* eslint-disable no-undef */
 /**
  * 设置登录人信息
  * @param auth 参数
  */
 export const setAuth = (auth: string) => {
   window.localStorage.setItem('auth', auth);
-};
-
-/**
- * 获取登录人信息
- */
-export const getAuth = () => {
-  const auth = window.localStorage.getItem('auth');
-  return auth || '';
-};
-export const getCode = () => {
-  return window.location.search
-    ? searchObj(window.location.search).code
-    : window.location.pathname.split('/')[2];
 };
 
 /**
@@ -34,6 +22,19 @@ export const searchObj = (search: string) => {
     ),
   );
   return body;
+};
+
+/**
+ * 获取登录人信息
+ */
+export const getAuth = () => {
+  const auth = window.localStorage.getItem('auth');
+  return auth || '';
+};
+export const getCode = () => {
+  return window.location.search
+    ? searchObj(window.location.search).code
+    : window.location.pathname.split('/')[2];
 };
 
 export const treeToList = (list: any[], parents: string | string[]) => {
@@ -115,6 +116,10 @@ export const debounce = (fn: any, wait: any, time: number) => {
   };
 };
 
+/**
+ * 节流
+ */
+
 export const throttle = (fn: any, time: number) => {
   const _self: any = fn;
   let timer: any = null;
@@ -141,4 +146,16 @@ export const throttle = (fn: any, time: number) => {
       _self.apply(_me, args);
     }, time || 500);
   };
+};
+
+/**
+ * 设置粘性tab
+ * @bgc 背景颜色
+ */
+
+export const setSticky = (dom: HTMLElement, bgc: string, top?: number) => {
+  dom.style.backgroundColor = bgc;
+  dom.style.position = 'sticky';
+  dom.style.top = `${top || 0}px`;
+  dom.style.zIndex = '999';
 };

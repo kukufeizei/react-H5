@@ -8,7 +8,7 @@ import { MessageOutline } from 'antd-mobile-icons'
 import Empty from '@/components/Empty'
 import Macy from "macy"
 import type { PropsTypes, ItemType } from './type'
-import { randomColor } from '@/utils';
+import { randomColor, setSticky } from '@/utils';
 
 
 const BasicTabs: FC<PropsTypes> = (props) => {
@@ -16,15 +16,6 @@ const BasicTabs: FC<PropsTypes> = (props) => {
     const [list, setList] = useState<ItemType[]>([])
     const [macy, SetMacy] = useState<any>(null)
     const [hasMore, setHasMore] = useState(true)
-
-    // 设置粘性tabs
-    const setSticky = () => {
-        const domtest = document.getElementsByClassName('adm-tabs')[0] as HTMLElement
-        domtest.style.backgroundColor = props.tabsColor as string
-        domtest.style.position = 'sticky'
-        domtest.style.top = '40px'
-        domtest.style.zIndex = '999'
-    }
 
     // 获取列表数据
     const getList = () => {
@@ -78,7 +69,12 @@ const BasicTabs: FC<PropsTypes> = (props) => {
 
     useEffect(() => {
         getList()
-        setSticky()
+        // 设置粘性tabs
+        setSticky(
+            document.getElementsByClassName('adm-tabs',)[0] as HTMLElement,
+            props.tabsColor as string,
+            props.tabsTop
+        )
     }, [])
 
     // 初始化macy
@@ -149,7 +145,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                         macy.reInit()
                     }}
                 >
-                    {props.tabsItem.map(item => (
+                    {props.tabsItem!.map(item => (
                         <Tabs.Tab title={
                             <Badge content={item.count || ''} style={{ '--right': '-10px', '--top': '8px' }}>
                                 {item.title}
