@@ -9,17 +9,17 @@ import type { TabsItemType } from '@/components/BasicTabs/type'
 const Home = () => {
   const tabsItem: TabsItemType[] = [
     {
-      title: '问题',
+      title: '新问题',
       count: 1,
       key: 'question'
     },
     {
-      title: '回复',
+      title: '好问题',
       count: 0,
       key: 'reply'
     },
     {
-      title: '收藏',
+      title: '待回复',
       count: 4,
       key: 'star'
     }
