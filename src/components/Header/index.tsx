@@ -10,7 +10,7 @@ const Header: FC = () => {
     const [showInputMini, setShowInputMini] = useState(false)
     const scrollChange = (e?: any) => {
         if (!e) return
-        setShowInputMini(e.target.scrollTop >= 100)
+        setShowInputMini(e.target.scrollTop >= 70)
     }
     useEffect(() => {
         // 滚动条滚动时触发
@@ -47,4 +47,4 @@ const Header: FC = () => {
         </>
     );
 };
-export default Header;
+export default Header

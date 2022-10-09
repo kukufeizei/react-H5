@@ -1,10 +1,15 @@
 import { White } from '@/typings';
 import { lazy } from 'react';
+
+import HomeIcon from '@/assets/images/home.png'
+import MessageIcon from '@/assets/images/message.png'
+import MineIcon from '@/assets/images/mine.png'
+
 const Mine = lazy(() => import(/* chunkName: "Search" */ '@/pages/Mine'));
 const Message = lazy(() => import(/* chunkName: List */ '@/pages/Message'));
 const Home = lazy(() => import(/* chunkName: Home */ '@/pages/Home'));
 const Index = lazy(() => import(/* chunkName: Index */ '@/pages/Index'));
-const Other = lazy(() => import(/* chunkName: Other */ '@/pages/Other'));
+const QuestionDetails = lazy(() => import(/* chunkName: Other */ '@/pages/QuestionDetails'));
 const NoFound = lazy(
   () => import(/* chunkName: NoFound */ '../components/NoFound'),
 );
@@ -12,23 +17,23 @@ export const TabBarList: White.RouteTabBar[] = [
   {
     path: '/',
     component: Home,
-    icon: 'white-home1',
+    icon: HomeIcon,
     sceneMode: 'scroll',
-    title: '首页',
+    title: '',
   },
   {
     path: '/message',
     component: Message,
-    icon: 'white-order',
+    icon: MessageIcon,
     sceneMode: 'scroll',
-    title: '消息',
+    title: '',
   },
   {
     path: '/mine',
     component: Mine,
-    icon: 'white-account',
+    icon: MineIcon,
     sceneMode: 'scroll',
-    title: '我的',
+    title: '',
   },
 ];
 
@@ -39,8 +44,8 @@ const routes: White.RouteConfig[] = [
     tabBars: TabBarList,
   },
   {
-    path: '/other',
-    component: Other,
+    path: '/details',
+    component: QuestionDetails,
   },
   {
     path: '*',

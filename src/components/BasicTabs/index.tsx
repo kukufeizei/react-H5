@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { memo, FC, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './index.module.less'
 import { Tabs, Badge, InfiniteScroll, List } from 'antd-mobile';
@@ -16,17 +17,18 @@ const BasicTabs: FC<PropsTypes> = (props) => {
     const [list, setList] = useState<ItemType[]>([])
     const [macy, SetMacy] = useState<any>(null)
     const [hasMore, setHasMore] = useState(true)
+    const nva = useNavigate();
 
     // 获取列表数据
     const getList = () => {
         const result: ItemType[] = [
             {
-                img: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fbackgd%2Fcover%2F00%2F07%2F13%2F5b691a9c69162.jpg%21%2Ffw%2F780%2Fquality%2F90%2Funsharp%2Ftrue%2Fcompress%2Ftrue&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1666753819&t=5e399a244af7bf5e5a76ac8aa014c34b',
+                img: 'https://images.unsplash.com/photo-1567945716310-4745a6b7844b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=60',
                 title: '这道题到底咋写',
                 name: '迪迦奥特曼',
                 count: 1
             }, {
-                img: 'https://images.unsplash.com/photo-1620476214170-1d8080f65cdb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3150&q=80',
+                img: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.yipic.cn%2Fthumb%2F4a827e42%2F447ff950%2F6d7e1637%2F4e79c78a%2Fbig_4a827e42447ff9506d7e16374e79c78a.jpg%3Fx-oss-process%3Dimage%2Fformat%2Cwebp%2Fsharpen%2C100&refer=http%3A%2F%2Fimg.yipic.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1666754036&t=39ddf8b93613299461c606efb98a0f69',
                 title: '你们觉得世界上有没有外星人呢',
                 name: '我是怪兽',
                 count: 2
@@ -163,7 +165,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                                     ?
                                     list.map((ele, i) => {
                                         return (
-                                            <li key={i}>
+                                            <li key={i} onClick={() => { nva('/details') }}>
                                                 <img src={ele.img} />
                                                 <p>{ele.title}</p>
                                                 <div className={`flex justify-between ${styles.mall10}`}>

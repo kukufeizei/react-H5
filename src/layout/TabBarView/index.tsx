@@ -4,6 +4,7 @@ import { useLocation, matchPath } from 'react-router-dom';
 import routers from '../../routers';
 import styles from './index.module.less';
 
+
 // 底部tabbar
 const TabBarView: FC = () => {
   const location = useLocation();
@@ -29,20 +30,19 @@ const TabBarView: FC = () => {
     -1;
   return (
     <div
-      className={`${styles.tabBar} flex  justify-center items-center ${
-        isTabBar ? styles.in_page : styles.out_page
-      }`}>
+      className={`${styles.tabBar} flex  justify-center items-center ${isTabBar ? styles.in_page : styles.out_page
+        }`}>
       {tabBars.current?.map(({ title, path, icon }, index) => (
         <div
-          className={`flex flex-col justify-center items-center ${
-            styles.tabBarItem
-          } ${state === index ? styles.chooseed : ''}`}
-          key={title}
+          className={`flex flex-col justify-center items-center ${styles.tabBarItem
+            } ${state === index ? styles.chooseed : ''}`}
+          key={index}
           onClick={() => {
             OnTabClick(index, path);
           }}>
-          <i className={icon} />
-          <span>{title}</span>
+          {/* <i className={icon} /> */}
+          <img className={styles.icon_img} src={icon} alt="" />
+          {/* <span>{title}</span> */}
         </div>
       ))}
     </div>

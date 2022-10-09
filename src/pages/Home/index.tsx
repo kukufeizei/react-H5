@@ -1,7 +1,7 @@
 
-import { memo, useEffect } from 'react';
+import { memo } from 'react';
 // import { getList } from '@/api/route'
-import styles from './index.module.less'
+// import styles from './index.module.less'
 import Header from '@/components/Header'
 import BasicTabs from '@/components/BasicTabs';
 import type { TabsItemType } from '@/components/BasicTabs/type'
@@ -28,9 +28,6 @@ const Home = () => {
 
   // })
 
-  useEffect(() => {
-
-  }, [])
 
 
   return (

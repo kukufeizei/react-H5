@@ -1,11 +1,22 @@
-.box {
-  background: #eee;
-  width: 80px;
-  height: 80px;
-  display: block;
-  border-radius: 16px;
-}
+.message {
+  :global(.adm-list-body-inner) {
+    margin-top: 0px;
+  }
 
-.badgeIcon {
-  vertical-align: baseline;
+  :global(.adm-list-header) {
+    color: @title-color;
+    font-size: 28px;
+  }
+
+  .title {
+    font-size: 28px;
+    font-weight: 600;
+    color: @title-color;
+    margin-bottom: 8px;
+  }
+
+  .content {
+    color: @hint-color;
+    font-size: 25px;
+  }
 }
