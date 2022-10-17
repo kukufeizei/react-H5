@@ -26,6 +26,8 @@ axios.interceptors.response.use(
         Toast.show({ icon: 'fail', content: response.data.message });
       return Promise.reject(response);
     }
+    console.log(response);
+    
     return Promise.resolve(response.data.data);
   },
   (error: AxiosErrorInterface) => {
@@ -36,8 +38,8 @@ axios.interceptors.response.use(
       error.response.data.message &&
       Toast.show({ icon: 'fail', content: error.response.data.message });
     if (error.response && error.response.status === 401) {
+      // token失效
       setAuth('');
-      window.location.assign(`${window.location.origin}/login`);
     } else {
       error.response &&
         error.response.statusText &&
@@ -52,15 +54,15 @@ const baseRequest = (config: any): Promise<any> => {
   config = {
     ...config,
     headers: {
-      Authorization: `Beara ${getAuth()}`,
+      Authorization: `Bearer ${getAuth()}`,
     },
-    url: `${import.meta.env.REACT_APP_HTTPBASEURL}${config.url}`,
+    url: `${import.meta.env.VITE_HTTP_API}${config.url}`,
   };
   return axios.request(config);
 };
 
 export default {
-  get: (url: string, params?: object, config?: AxiosRequestConfig) => {
+  get: (url: string, params?: any, config?: AxiosRequestConfig) => {
     return baseRequest({
       method: 'get',
       params,
@@ -68,7 +70,7 @@ export default {
       ...config,
     });
   },
-  post: (url: string, data: object, config?: AxiosRequestConfig) => {
+  post: (url: string, data: any, config?: AxiosRequestConfig) => {
     return baseRequest({
       data,
       method: 'post',
@@ -76,7 +78,7 @@ export default {
       ...config,
     });
   },
-  patch: (url: string, data: object, config?: AxiosRequestConfig) => {
+  patch: (url: string, data: any, config?: AxiosRequestConfig) => {
     return baseRequest({
       data,
       method: 'patch',
@@ -84,7 +86,7 @@ export default {
       ...config,
     });
   },
-  put: (url: string, data?: object, config?: AxiosRequestConfig) => {
+  put: (url: string, data?: any, config?: AxiosRequestConfig) => {
     return baseRequest({
       data,
       method: 'put',
@@ -92,7 +94,7 @@ export default {
       ...config,
     });
   },
-  delete: (url: string, data?: object, config?: AxiosRequestConfig) => {
+  delete: (url: string, data?: any, config?: AxiosRequestConfig) => {
     return baseRequest({
       data,
       method: 'delete',

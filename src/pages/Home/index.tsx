@@ -1,6 +1,6 @@
 
 import { memo } from 'react';
-// import { getList } from '@/api/route'
+import { getToken } from '@/api/route'
 // import styles from './index.module.less'
 import Header from '@/components/Header'
 import BasicTabs from '@/components/BasicTabs';
@@ -24,10 +24,16 @@ const Home = () => {
       key: 'star'
     }
   ]
-  // getList('1231231').then(res => {
 
-  // })
 
+  // useRequest
+  const params = {
+    user_id: "134464846161772552",
+    pwd: "b5f1901be559d8752a8b265bdc6a1bab12c4d04582c87762cac46688b891fb9b"
+  }
+  getToken(params).then(res => {
+    console.log(res);
+  })
 
 
   return (

@@ -29,7 +29,7 @@ export const searchObj = (search: string) => {
  */
 export const getAuth = () => {
   const auth = window.localStorage.getItem('auth');
-  return auth || '';
+  return auth;
 };
 export const getCode = () => {
   return window.location.search
