@@ -3,7 +3,7 @@
 
 // // 封装axios ，发送自定义的网络请求hook
 
-// function useRequest(url) {
+// function useAuth(url) {
 //   const [loading, setLoading] = useState(false);
 //   const [data, setData] = useState();
 //   const [error, setError] = useState();
@@ -20,7 +20,8 @@
 //       });
 //   }, [url]); // 注意这里要传入参数url，代表url改变的时候才触发哦
 
-//   return [loading, data, error]; // 直接返回变量
+//   return 123123;
+//   //   return [loading, data, error]; // 直接返回变量
 // }
 
-// export default useRequest;
+// export default useAuth;

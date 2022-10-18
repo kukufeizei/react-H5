@@ -1,0 +1,4 @@
+export const INIT_CITY = 'INIT_CITY'
+export const CHANGE_CITY = 'CHANGE_CITY'
+export const SET_USERINFO = 'SET_USERINFO'
+

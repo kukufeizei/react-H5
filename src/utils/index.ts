@@ -3,8 +3,16 @@
  * 设置登录人信息
  * @param auth 参数
  */
-export const setAuth = (auth: string) => {
-  window.localStorage.setItem('auth', auth);
+export const setAuth = (key: string, val: string) => {
+  window.localStorage.setItem(key, val);
+};
+
+/**
+ * 获取登录人信息
+ */
+export const getAuth = (key: string) => {
+  const auth = window.localStorage.getItem(key);
+  return auth;
 };
 
 /**
@@ -24,13 +32,6 @@ export const searchObj = (search: string) => {
   return body;
 };
 
-/**
- * 获取登录人信息
- */
-export const getAuth = () => {
-  const auth = window.localStorage.getItem('auth');
-  return auth;
-};
 export const getCode = () => {
   return window.location.search
     ? searchObj(window.location.search).code

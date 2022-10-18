@@ -1,9 +1,12 @@
 import { Toast } from 'antd-mobile';
 import axios, { AxiosRequestConfig } from 'axios';
 
-import { getAuth, setAuth } from './../utils/index';
+import { getAuth, setAuth } from '@/utils/index';
+import { refreshTokenApi } from '@/api/route';
+import store from '@/redux/store';
 
 axios.defaults.timeout = 1000 * 10;
+
 interface AxiosErrorInterface {
   message: string;
   config: any;
@@ -22,30 +25,33 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   (response: any) => {
     if (response.status !== 200) {
-      response.data.message &&
-        Toast.show({ icon: 'fail', content: response.data.message });
+      Toast.show({ icon: 'fail', content: response.data.err_msg });
       return Promise.reject(response);
     }
-    console.log(response);
-    
-    return Promise.resolve(response.data.data);
+    return Promise.resolve(response.data);
   },
   (error: AxiosErrorInterface) => {
-    if (~`${error.message}`.indexOf('timeout')) {
-      Toast.show({ icon: 'fail', content: '网络超时' });
-    }
-    error.response &&
-      error.response.data.message &&
-      Toast.show({ icon: 'fail', content: error.response.data.message });
-    if (error.response && error.response.status === 401) {
-      // token失效
-      setAuth('');
-    } else {
-      error.response &&
-        error.response.statusText &&
-        Toast.show({ icon: 'fail', content: error.response.data.message });
-    }
+    if (error.response.status === 403 || error.response.status === 401) {
+      // token失效 重新请求token
+      const user_id = store.getState().user.user.user_id as string;
+      const refresh_token = store.getState().user.user.refresh_token as string;
 
+      refreshTokenApi({
+        user_id: user_id,
+        refresh_token: refresh_token,
+      }).then((res) => {
+        res &&
+          store.dispatch({
+            type: 'SET_USERINFO',
+            user: res.result.oauth2_token,
+          });
+        setAuth('token', res.result.oauth2_token.access_token);
+        setAuth('refresh_token', res.result.oauth2_token.refresh_token);
+        setAuth('user_id', res.result.oauth2_token.user_id);
+      });
+    } else {
+      Toast.show({ icon: 'fail', content: '请求失败' });
+    }
     return Promise.reject(error);
   },
 );
@@ -54,7 +60,7 @@ const baseRequest = (config: any): Promise<any> => {
   config = {
     ...config,
     headers: {
-      Authorization: `Bearer ${getAuth()}`,
+      Authorization: `Bearer ${getAuth('token')}`,
     },
     url: `${import.meta.env.VITE_HTTP_API}${config.url}`,
   };
