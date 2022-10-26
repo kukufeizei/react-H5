@@ -44,7 +44,7 @@ const routes: White.RouteConfig[] = [
     tabBars: TabBarList,
   },
   {
-    path: '/details',
+    path: '/details/:timeline_id',
     component: QuestionDetails,
   },
   {

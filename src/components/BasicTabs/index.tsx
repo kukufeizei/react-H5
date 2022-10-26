@@ -3,6 +3,7 @@
 import { memo, FC, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import KeepAlive from 'react-activation'
 import Macy from "macy"
 import Empty from '@/components/Empty'
 import styles from './index.module.less'
@@ -68,8 +69,8 @@ const BasicTabs: FC<PropsTypes> = (props) => {
         loadMore()
     }, [tabs])
 
+    // 设置粘性tabs
     useEffect(() => {
-        // 设置粘性tabs
         setSticky(
             document.getElementsByClassName('adm-tabs',)[0] as HTMLElement,
             props.tabsColor as string,
@@ -102,6 +103,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
             }, true)
         }
     }
+
     useEffect(() => {
         InitMacy()
     }, [list])
@@ -141,7 +143,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                                     ?
                                     list.map((ele, i) => {
                                         return (
-                                            <li key={i} onClick={() => { nva('/details') }}>
+                                            <li key={i} onClick={() => { nva(`/details/${ele.timeline_id}`) }}>
 
                                                 {
                                                     ele.image_list ? <img src={getRealImgUrl(ele.image_list[0].url as string)} /> : <p>{ele.text}</p>

@@ -6,6 +6,9 @@ import type {
   ListParams,
   GetOssSystemParams,
   SelfUserInfoParams,
+  QestionDetailsParams,
+  CommentParams,
+  NotificationParams
 } from './model/type';
 
 /* 获取token */
@@ -35,3 +38,15 @@ export const goodListApi = (params?: ListParams) =>
 /* 获取待回复 */
 export const commentedListApi = (params?: ListParams) =>
   request.post('/society/load_not_commented_timeline_list', params);
+
+/* 问题详情以及1级回复 */
+export const questionDetailsApi = (params?: QestionDetailsParams) =>
+  request.post('/society/load_timeline_detail', params);
+
+/* 获取回复详情 */
+export const commentDetailsApi = (params?: CommentParams) =>
+  request.post('/society/load_comment_detail', params);
+
+/* 获取消息列表数据 */
+export const notificationApi = (params?: NotificationParams) =>
+  request.post('/user/load_user_notification', params);

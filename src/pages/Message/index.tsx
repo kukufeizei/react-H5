@@ -1,5 +1,5 @@
 
-import { FC, memo } from 'react';
+import { FC, memo, useEffect } from 'react';
 
 import ListItem from './listItem';
 import systemNotice from '@/assets/images/message/system-notice.png'
@@ -16,10 +16,14 @@ import userMessage from '@/assets/images/message/user-message.png'
 import wiki from '@/assets/images/message/wiki.png'
 
 import type { MessageTypes } from './type'
-
-
+import { notificationApi } from '@/api/route'
 
 const Message: FC = () => {
+  useEffect(() => {
+    // notificationApi({ user_id: '134464846161772552' }).then(res => {
+    //   console.log(res);
+    // })
+  }, [])
   const Item: MessageTypes[] = [
     {
       source: 'APP',
