@@ -1,9 +1,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { memo, FC, useState, useEffect } from 'react';
+import { memo, FC, useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import KeepAlive from 'react-activation'
 import Macy from "macy"
 import Empty from '@/components/Empty'
 import styles from './index.module.less'

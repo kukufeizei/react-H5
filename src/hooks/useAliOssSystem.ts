@@ -5,7 +5,6 @@ import { getAuth } from '@/utils/index';
 export function useAliOssSystem() {
   function getRealImgUrl(str: string) {
     if (!str) return null;
-
     const data: any = JSON.parse(getAuth('oss_system') as string);
     const client = new OSS({
       // Bucket所在地域
@@ -17,6 +16,8 @@ export function useAliOssSystem() {
       stsToken: data!.security_token,
       // Bucket名称。
       bucket: 'blesouci',
+      refreshSTSToken: undefined,
+      refreshSTSTokenInterval: 9999999,
     });
     // 文件URL的有效时长默认为1800秒，即30分钟。
     const url = client.signatureUrl(str);
