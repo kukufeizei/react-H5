@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { memo, useEffect, useRef, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Divider, Grid, Avatar, Image, InfiniteScroll } from 'antd-mobile'
 import { LikeOutline } from 'antd-mobile-icons'
-import { questionDetailsApi } from '@/api/route'
-import { getAuth, setAuth } from '@/utils/index';
+import { commentDetailsApi } from '@/api/route'
+import { getAuth } from '@/utils/index';
 import { useAliOssSystem } from '@/hooks/useAliOssSystem';
 import type { ReplyListType, QuestionDataType } from './type'
 
@@ -20,29 +20,28 @@ const Details = () => {
   const [hasMore, setHasMore] = useState(false)
   const childRef = useRef<any>(null)
   const params = useParams()
-  const nva = useNavigate();
   const [initParams, setInitParams] = useState({
     user_id: getAuth('user_id') as string,
-    timeline_id: params.timeline_id,
+    comment_id: params.comment_id,
     prev_id: 0,
     prev_score: '0'
   })
   // 获取详情
   const getDetails = async () => {
-    const res = await questionDetailsApi(initParams)
-    // 问题详情
-    res.result.timeline && setData(res.result.timeline)
+    const res = await commentDetailsApi(initParams)
+
     // 回复列表
-    setList(val => [...val, ...res.result.data])
+    setList(val => [...val, ...res.result.data.slice(1)])
     setInitParams({
       user_id: getAuth('user_id') as string,
-      timeline_id: params.timeline_id,
+      comment_id: params.comment_id,
       prev_id: res.result.prev_id,
       prev_score: res.result.prev_score
     })
   }
   // 加載更多
   const loadMore = async () => {
+    getDetails()
     setHasMore(initParams.prev_id! >= 0)
     if (initParams.prev_id! >= 0) {
       await getDetails()
@@ -50,20 +49,19 @@ const Details = () => {
   }
 
   useEffect(() => {
+    setData(JSON.parse(getAuth('commit') as string))
     loadMore()
   }, [])
 
   return (
     <div className={styles.details}>
-      <Nav title={data.term_name} />
+      <Nav title='回复详情' type='commit' />
       <div className={styles.pd}>
-        <Divider />
-        <p className={styles.title}>{data.title || ''}</p>
         <div className={styles.ma}>
           <Grid columns={10} >
             <Grid.Item span={6}>
               <div className='flex justify-start'>
-                <div className={styles.maright} onClick={() => { nva(`/user/${data.user_id}`) }}><Avatar src={getRealImgUrl(data.face_url as string) as string} style={{ '--size': '40px', '--border-radius': '40px' }} /></div>
+                <div className={styles.maright}><Avatar src={getRealImgUrl(data.face_url as string) as string} style={{ '--size': '40px', '--border-radius': '40px' }} /></div>
                 <div>
                   <p className={styles.mt}>{data.nickname}</p>
                   <p className={styles.desc}>发布于{data.publish_time} · {data.browse_count || 0}次阅读</p>
@@ -96,7 +94,6 @@ const Details = () => {
 
         <div className={styles.reply}>
           <p className={styles.title2}>全部回复</p>
-          {/* 回复区域 */}
           {
             list.map((item, index) => {
               return (
@@ -105,9 +102,7 @@ const Details = () => {
                     <Grid columns={10} >
                       <Grid.Item span={6}>
                         <div className='flex justify-start'>
-                          <div className={styles.maright} onClick={() => { nva(`/user/${item.user_id}`) }}>
-                            <Avatar src={getRealImgUrl(item.face_url as string) as string} style={{ '--size': '40px', '--border-radius': '40px' }} />
-                          </div>
+                          <div className={styles.maright}><Avatar src={getRealImgUrl(item.face_url as string) as string} style={{ '--size': '40px', '--border-radius': '40px' }} /></div>
                           <div>
                             <p className={styles.mt}>{item.nickname}</p>
                             <p className={styles.desc}>{item.send_time}</p>
@@ -123,10 +118,7 @@ const Details = () => {
                       </Grid.Item>
                     </Grid>
                   </div>
-                  <div className={styles.reply_details} onClick={() => {
-                    nva(`/comment/${item.comment_id}`)
-                    setAuth('commit', JSON.stringify(item))
-                  }}>
+                  <div className={styles.reply_details}>
                     <p style={{ marginBottom: '10px' }}>{item.text || ''}</p>
                     <div>
                       {
@@ -148,26 +140,25 @@ const Details = () => {
                                   </>
                                 )
                               }
-                              {!(item.ref_user_id === item.top_user_id) &&
-                                (<span className={styles.name}>{item.ref_nickname}</span>)
-                              }
+                              <span className={styles.name}>{item.ref_nickname}</span>
                               <span>{item.text || ''}</span>
                             </div>
                           </div>
                         )
                       })
                     }
+
                   </div>
                 </div>
               )
             })
           }
-
           <InfiniteScroll loadMore={loadMore} hasMore={hasMore} threshold={250} />
-
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 export default memo(Details);
+
+

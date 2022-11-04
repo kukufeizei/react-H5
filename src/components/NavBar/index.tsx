@@ -6,6 +6,7 @@ import styles from './index.module.less'
 
 interface NavTitleType {
     title?: string
+    type?: string
 }
 
 const Nav: FC<NavTitleType> = (props) => {
@@ -23,12 +24,14 @@ const Nav: FC<NavTitleType> = (props) => {
     return (
         <div className={styles._nav}>
             <NavBar onBack={back} right={right}>
-                <div className={styles.navbar_}>
-                    <span className={styles.navbar_text}>{props.title?.charAt(0) || ''}</span>
+                <div className={props.type !== 'commit' ? styles.navbar_ : ''}>
+                    {
+                        props.type !== 'commit' && <span className={styles.navbar_text}>{props.title?.charAt(0) || ''}</span>
+                    }
                     {props.title}
                 </div>
-            </NavBar>
-        </div>
+            </NavBar >
+        </div >
     );
 };
 export default memo(Nav);

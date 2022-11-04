@@ -10,7 +10,7 @@ const Home = () => {
   const tabsItem: TabsItemType[] = [
     {
       title: '新问题',
-      count: 1,
+      count: 0,
       key: 'home_question',
     },
     {
@@ -20,8 +20,13 @@ const Home = () => {
     },
     {
       title: '待回复',
-      count: 4,
+      count: 0,
       key: 'home_waitReply',
+    },
+    {
+      title: '优质回复',
+      count: 0,
+      key: 'home_goodReply',
     }
   ]
 
@@ -29,8 +34,10 @@ const Home = () => {
   return (
     <div>
       <Header />
+      {/* <BasicTabs tabsItem={tabsItem} tabsColor='#EEF2F3' tabsTop={40} /> */}
+
       <KeepAlive cacheKey="SOUCI_KEY">
-        <BasicTabs tabsItem={tabsItem} tabsColor='#EEF2F3' tabsTop={40} />
+        <BasicTabs tabsItem={tabsItem} tabsColor='#fff' tabsTop={40} />
       </KeepAlive>
     </div >
   );

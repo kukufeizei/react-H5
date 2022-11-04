@@ -33,6 +33,8 @@ axios.interceptors.response.use(
   (error: AxiosErrorInterface) => {
     if (error.response.status === 403 || error.response.status === 401) {
       // token失效 重新请求token
+      // eslint-disable-next-line no-undef
+      location.reload();
       const user_id = store.getState().user.user.user_id as string;
       const refresh_token = store.getState().user.user.refresh_token as string;
 

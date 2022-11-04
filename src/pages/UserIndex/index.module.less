@@ -1,0 +1,93 @@
+.mine {
+    // background-color: #fff;
+    box-sizing: border-box;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+
+    .pd15 {
+        padding: 15px;
+        background-color: #fff;
+    }
+
+    :global(.adm-image) {
+        border-radius: 50%;
+    }
+
+    ._header {
+        margin-left: 15px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    ._name {
+        font-weight: bold;
+        color: @color-primary;
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+
+    ._number {
+        color: @hint-color;
+        font-weight: 500;
+        font-size: 25px;
+    }
+
+    ._ml10px {
+        margin-left: 10px;
+    }
+
+    .operate {
+        padding-top: 50px;
+
+        .user_sign {
+            margin: 50px 0px 40px;
+
+            span {
+                color: @color-primary;
+                font-size: 30px;
+
+            }
+
+            span:first-child {
+                font-weight: bold;
+            }
+
+            span:last-child {
+                font-weight: 500;
+            }
+        }
+    }
+
+    .operate_count {
+        >div {
+            margin: 15px 15px 0 0;
+
+            span:first-child {
+                color: @color-primary;
+                font-size: 30px;
+                padding-right: 5px;
+                font-weight: bold;
+            }
+
+            span:nth-child(2) {
+                color: @hint-color;
+            }
+        }
+    }
+
+    .btn_edit {
+        background-color: #19DCB2;
+        border-radius: 30px;
+        color: @color-white;
+        border: 0;
+        font-size: 25px;
+        padding: 14px 15px;
+        width: 155px;
+        height: 60px;
+    }
+
+    
+    
+}

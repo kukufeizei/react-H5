@@ -8,7 +8,7 @@ import type {
   SelfUserInfoParams,
   QestionDetailsParams,
   CommentParams,
-  NotificationParams
+  NotificationParams,
 } from './model/type';
 
 /* 获取token */
@@ -39,10 +39,15 @@ export const goodListApi = (params?: ListParams) =>
 export const commentedListApi = (params?: ListParams) =>
   request.post('/society/load_not_commented_timeline_list', params);
 
-/* 问题详情以及1级回复 */
+/* 获取优质回复 */
+export const goodCommentListApi = (params?: ListParams) =>
+  request.post('/society/load_recommended_comment_list', params);
+
+/* 问题动态详情 */
 export const questionDetailsApi = (params?: QestionDetailsParams) =>
   request.post('/society/load_timeline_detail', params);
 
+  
 /* 获取回复详情 */
 export const commentDetailsApi = (params?: CommentParams) =>
   request.post('/society/load_comment_detail', params);

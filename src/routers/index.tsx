@@ -9,7 +9,10 @@ const Mine = lazy(() => import(/* chunkName: "Search" */ '@/pages/Mine'));
 const Message = lazy(() => import(/* chunkName: List */ '@/pages/Message'));
 const Home = lazy(() => import(/* chunkName: Home */ '@/pages/Home'));
 const Index = lazy(() => import(/* chunkName: Index */ '@/pages/Index'));
-const QuestionDetails = lazy(() => import(/* chunkName: Other */ '@/pages/QuestionDetails'));
+const QuestionDetails = lazy(() => import(/* chunkName: QuestionDetails */ '@/pages/QuestionDetails'));
+const CommentDetails = lazy(() => import(/* chunkName: CommentDetails */ '@/pages/CommentDetails'));
+const UserIndex = lazy(() => import(/* chunkName: UserIndex */ '@/pages/UserIndex'));
+
 const NoFound = lazy(
   () => import(/* chunkName: NoFound */ '../components/NoFound'),
 );
@@ -46,6 +49,14 @@ const routes: White.RouteConfig[] = [
   {
     path: '/details/:timeline_id',
     component: QuestionDetails,
+  },
+  {
+    path: '/comment/:comment_id',
+    component: CommentDetails,
+  },
+  {
+    path: '/user/:user_id',
+    component: UserIndex,
   },
   {
     path: '*',

@@ -24,6 +24,7 @@ export interface ItemType {
   text?: string;
   timeline_id?: number;
   title?: string;
+  superior_info?: string;
   user_id?: number;
 }
 

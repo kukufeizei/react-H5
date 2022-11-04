@@ -4,7 +4,7 @@
     flex-direction: column;
 
     :global(.adm-tabs) {
-        padding: 15px 15px 0px;
+        padding: 0 15px;
     }
 
     :global(.adm-space-item) {
@@ -12,7 +12,7 @@
     }
 
     :global(.adm-tabs-tab-list) {
-        width: 400px;
+        width: 600px;
     }
 
     :global(.adm-tabs-tab) {
@@ -63,9 +63,18 @@
         >p {
             font-size: 20px;
             margin: 10px;
+            display: -webkit-box;
+            // 超出隐藏
             overflow: hidden;
+            // 文本自动处理换行
+            white-space: normal !important;
+            // 多出省略
             text-overflow: ellipsis;
-            white-space: nowrap;
+            // 允许长单词换行到下一行
+            word-wrap: break-word;
+            // 展示行数
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
 
         }
     }
@@ -84,4 +93,12 @@
         font-size: 20px;
         vertical-align: middle;
     }
+}
+
+.term_name {
+    margin-top: 5px;
+    width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
