@@ -1,14 +1,13 @@
 /* eslint-disable no-undef */
 /**
- * 设置登录人信息
- * @param auth 参数
+ * 设置localStorage信息
  */
 export const setAuth = (key: string, val: string) => {
   window.localStorage.setItem(key, val);
 };
 
 /**
- * 获取登录人信息
+ * 获取localStorage
  */
 export const getAuth = (key: string) => {
   const auth = window.localStorage.getItem(key);

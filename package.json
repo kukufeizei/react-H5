@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "name": "react-ts-h5-template",
+  "name": "react-ts-h5-souci",
   "private": false,
   "license": "ISC",
-  "author": "swcbo",
+  "author": "ly",
   "scripts": {
     "dev": "vite --mode dev",
     "pre": "vite --mode pre",

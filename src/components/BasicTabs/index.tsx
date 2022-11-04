@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { memo, FC, useState, useEffect, useCallback } from 'react';
+import { memo, FC, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Macy from "macy"
@@ -22,61 +22,11 @@ const BasicTabs: FC<PropsTypes> = (props) => {
     const [tabs, setTabs] = useState<string>('home_question')
     const [list, setList] = useState<ItemType[]>([])
     const [macy, setMacy] = useState<any>(null)
-    const [hasMore, setHasMore] = useState(true)
+    const [hasMore, setHasMore] = useState(false)
     const nva = useNavigate();
     const { user } = useSelector(state => state)
     const { getRealImgUrl } = useAliOssSystem();
-
-    const [params, setParams] = useState<ListParams>({
-        user_id: user.user.user_id,
-        term_id: -1,
-        prev_id: 0,
-        prev_score: '0'
-    })
-    // 获取列表数据
-    const getList = async () => {
-        let request;
-        switch (tabs) {
-            case 'home_question':
-                request = newListApi(params)
-                break;
-            case 'home_goodQuestion':
-                request = goodListApi(params)
-                break;
-            case 'home_waitReply':
-                request = commentedListApi(params)
-                break;
-        }
-
-        const data = await request
-        setList(val => [...val, ...data.result.data])
-
-        setParams({
-            user_id: user.user.user_id,
-            term_id: -1,
-            prev_id: data.result.prev_id || -1,
-            prev_score: data.result.prev_score,
-        })
-
-    }
-    // 加載更多
-    const loadMore = async () => {
-        getList()
-        setHasMore(params.prev_id! >= 0)
-    }
-    useEffect(() => {
-        loadMore()
-    }, [tabs])
-
-    // 设置粘性tabs
-    useEffect(() => {
-        setSticky(
-            document.getElementsByClassName('adm-tabs',)[0] as HTMLElement,
-            props.tabsColor as string,
-            props.tabsTop
-        )
-    }, [])
-
+    
     // 初始化macy
     const InitMacy = () => {
         // 没数据直接删掉监听
@@ -106,6 +56,64 @@ const BasicTabs: FC<PropsTypes> = (props) => {
     useEffect(() => {
         InitMacy()
     }, [list])
+
+    const [params, setParams] = useState<ListParams>({
+        user_id: user.user.user_id,
+        term_id: -1,
+        prev_id: 0,
+        prev_score: '0'
+    })
+
+    // 获取列表数据
+    const getList = async () => {
+        let request;
+        switch (tabs) {
+            case 'home_question':
+                request = newListApi(params)
+                break;
+            case 'home_goodQuestion':
+                request = goodListApi(params)
+                break;
+            case 'home_waitReply':
+                request = commentedListApi(params)
+                break;
+        }
+
+        const data = await request
+        setList(val => [...val, ...data.result.data])
+        // console.log(data.result.prev_id);
+
+        setParams({
+            user_id: user.user.user_id,
+            term_id: -1,
+            prev_id: data.result.prev_id,
+            prev_score: data.result.prev_score,
+        })
+    }
+    // 加載更多
+    const loadMore = async () => {
+        setHasMore(params.prev_id! >= 0)
+        if (params.prev_id! >= 0) {
+            await getList()
+        }
+    }
+    useEffect(() => {
+        loadMore()
+    }, [tabs])
+
+    // 设置粘性tabs
+    useEffect(() => {
+        console.log(11);
+        
+        // window.scrollTo(0, 1000);
+        // document.body.scrollTo(0, 1000);
+
+        setSticky(
+            document.getElementsByClassName('adm-tabs',)[0] as HTMLElement,
+            props.tabsColor as string,
+            props.tabsTop
+        )
+    }, [])
 
     return (
         <>
@@ -142,7 +150,9 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                                     ?
                                     list.map((ele, i) => {
                                         return (
-                                            <li key={i} onClick={() => { nva(`/details/${ele.timeline_id}`) }}>
+                                            <li key={i} onClick={() => {
+                                                nva(`/dteails/${ele.timeline_id}`)
+                                            }}>
 
                                                 {
                                                     ele.image_list ? <img src={getRealImgUrl(ele.image_list[0].url as string)} /> : <p>{ele.text}</p>
@@ -164,8 +174,9 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                             }
                         </ul>
                     </List>
-                    <InfiniteScroll loadMore={loadMore} hasMore={hasMore} />
+                    <InfiniteScroll loadMore={loadMore} hasMore={hasMore} threshold={250} />
                 </div>
+
             </div>
         </>
     );

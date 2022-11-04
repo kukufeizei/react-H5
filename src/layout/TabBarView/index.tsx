@@ -48,4 +48,5 @@ const TabBarView: FC = () => {
     </div>
   );
 };
+
 export default memo(TabBarView);

@@ -7,4 +7,5 @@ const useTitle = (title: string) => {
     document.title = title || oldTitle.current;
   }, [title]);
 };
+
 export default useTitle;

@@ -37,7 +37,7 @@ yarn lint
 - [x] tailwindcss
 ## 项目目录
 ```
-react-ts-h5-template
+react-ts-h5-souci
 ├─ .env.dev //dev⚙
 ├─ .env.pre //pre⚙
 ├─ .env.prod //prod⚙
