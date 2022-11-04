@@ -3,7 +3,6 @@ import { getAuth } from '@/utils/index';
 
 // 传入文件地址, 通过oss配置返回新地址hooks
 export function useAliOssSystem() {
-
   function getRealImgUrl(str: string) {
     if (!str) return null;
     const data: any = JSON.parse(getAuth('oss_system') as string);

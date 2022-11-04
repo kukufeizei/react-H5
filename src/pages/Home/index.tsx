@@ -1,5 +1,6 @@
 
 import { memo } from 'react';
+import KeepAlive from 'react-activation'
 // import styles from './index.module.less'
 import Header from '@/components/Header'
 import BasicTabs from '@/components/BasicTabs';
@@ -28,7 +29,9 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <BasicTabs tabsItem={tabsItem} tabsColor='#EEF2F3' tabsTop={40} />
+      <KeepAlive cacheKey="SOUCI_KEY">
+        <BasicTabs tabsItem={tabsItem} tabsColor='#EEF2F3' tabsTop={40} />
+      </KeepAlive>
     </div >
   );
 };

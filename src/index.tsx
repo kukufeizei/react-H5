@@ -6,6 +6,7 @@ import { AliveScope } from 'react-activation'
 import App from './App';
 import { setWindowHeight } from './utils';
 import store from './redux/store'
+
 setWindowHeight();
 window.onresize = () => {
   setWindowHeight();

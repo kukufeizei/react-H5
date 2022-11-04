@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 
 import { memo, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom'
@@ -74,63 +73,61 @@ const Details = () => {
             </div>
           )
         }
+
         <div className={styles.reply}>
           <p className={styles.title2}>全部回复</p>
           {/* 回复区域 */}
           {
-            list.length ?
-              list.map((item, index) => {
-                return (
-                  <div key={index}>
-                    <div className={styles.ma}>
-                      <Grid columns={10} >
-                        <Grid.Item span={6}>
-                          <div className='flex justify-start'>
-                            <div className={styles.maright}><Avatar src={getRealImgUrl(item.face_url as string) as string} style={{ '--size': '40px', '--border-radius': '40px' }} /></div>
-                            <div>
-                              <p className={styles.mt}>{item.nickname}</p>
-                              <p className={styles.desc}>{item.send_time}</p>
-                            </div>
+            list.map((item, index) => {
+              return (
+                <div key={index}>
+                  <div className={styles.ma}>
+                    <Grid columns={10} >
+                      <Grid.Item span={6}>
+                        <div className='flex justify-start'>
+                          <div className={styles.maright}><Avatar src={getRealImgUrl(item.face_url as string) as string} style={{ '--size': '40px', '--border-radius': '40px' }} /></div>
+                          <div>
+                            <p className={styles.mt}>{item.nickname}</p>
+                            <p className={styles.desc}>{item.send_time}</p>
                           </div>
-                        </Grid.Item>
-                        <Grid.Item span={4}>
-                          <div className={`${styles.btnbox}`}>
-                            <span>
-                              <LikeOutline fontSize={20} />{item.like_count}
-                            </span>
-                          </div>
-                        </Grid.Item>
-                      </Grid>
-                    </div>
-                    <div className={styles.reply_details}>
-                      <p>{item.text || ''}</p>
-                      {/* 二级回复 */}
-                      {item.secondary_comment_list &&
-                        item.secondary_comment_list.map((item, index) => {
-                          return (
-                            <div className={styles.reply_people} key={index}>
-                              <div className={styles.fsz}>
-                                {item.ref_nickname &&
-                                  (
-                                    <>
-                                      <span className={styles.name}>{item.nickname}:</span><span>回复</span>
-                                    </>
-                                  )
-                                }
-                                <span className={styles.name}>{item.ref_nickname}</span>
-                                <span>{item.text || ''}</span>
-                              </div>
-                            </div>
-                          )
-                        })
-                      }
-
-                    </div>
+                        </div>
+                      </Grid.Item>
+                      <Grid.Item span={4}>
+                        <div className={`${styles.btnbox}`}>
+                          <span>
+                            <LikeOutline fontSize={20} />{item.like_count}
+                          </span>
+                        </div>
+                      </Grid.Item>
+                    </Grid>
                   </div>
-                )
-              })
-              :
-              <div> <Divider>回复加载完了</Divider></div>
+                  <div className={styles.reply_details}>
+                    <p>{item.text || ''}</p>
+                    {/* 二级回复 */}
+                    {item.secondary_comment_list &&
+                      item.secondary_comment_list.map((item, index) => {
+                        return (
+                          <div className={styles.reply_people} key={index}>
+                            <div className={styles.fsz}>
+                              {item.ref_nickname &&
+                                (
+                                  <>
+                                    <span className={styles.name}>{item.nickname}:</span><span>回复</span>
+                                  </>
+                                )
+                              }
+                              <span className={styles.name}>{item.ref_nickname}</span>
+                              <span>{item.text || ''}</span>
+                            </div>
+                          </div>
+                        )
+                      })
+                    }
+
+                  </div>
+                </div>
+              )
+            })
           }
         </div>
       </div>
