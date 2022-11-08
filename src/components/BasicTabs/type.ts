@@ -8,6 +8,7 @@ export interface PropsTypes {
   tabsItem?: TabsItemType[];
   tabsColor?: string;
   tabsTop?: number;
+  s_user_id?: string;
 }
 
 export interface ItemType {

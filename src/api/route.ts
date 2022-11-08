@@ -9,6 +9,7 @@ import type {
   QestionDetailsParams,
   CommentParams,
   NotificationParams,
+  UserListParams,
 } from './model/type';
 
 /* 获取token */
@@ -47,7 +48,6 @@ export const goodCommentListApi = (params?: ListParams) =>
 export const questionDetailsApi = (params?: QestionDetailsParams) =>
   request.post('/society/load_timeline_detail', params);
 
-  
 /* 获取回复详情 */
 export const commentDetailsApi = (params?: CommentParams) =>
   request.post('/society/load_comment_detail', params);
@@ -55,3 +55,15 @@ export const commentDetailsApi = (params?: CommentParams) =>
 /* 获取消息列表数据 */
 export const notificationApi = (params?: NotificationParams) =>
   request.post('/user/load_user_notification', params);
+
+/* 获取用戶历史问题列表 */
+export const userTimelineListApi = (params?: UserListParams) =>
+  request.post('/society/load_user_timeline_list', params);
+
+/* 获取用户收藏问题列表 */
+export const userCollectedTimelineListApi = (params?: UserListParams) =>
+  request.post('/society/load_collected_timeline_list', params);
+
+/* 获取用户历史回复列表 */
+export const userCommentListApi = (params?: UserListParams) =>
+  request.post('/society/load_user_comment_list', params);

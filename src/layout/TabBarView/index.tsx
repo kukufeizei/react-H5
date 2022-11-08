@@ -32,7 +32,7 @@ const TabBarView: FC = () => {
     <div
       className={`${styles.tabBar} flex  justify-center items-center ${isTabBar ? styles.in_page : styles.out_page
         }`}>
-      {tabBars.current?.map(({ title, path, icon }, index) => (
+      {tabBars.current?.map(({ title, path, icon, activeIcon }, index) => (
         <div
           className={`flex flex-col justify-center items-center ${styles.tabBarItem
             } ${state === index ? styles.chooseed : ''}`}
@@ -41,7 +41,7 @@ const TabBarView: FC = () => {
             OnTabClick(index, path);
           }}>
           {/* <i className={icon} /> */}
-          <img className={styles.icon_img} src={icon} alt="" />
+          <img className={styles.icon_img} src={state === index ? activeIcon : icon} alt="" />
           {/* <span>{title}</span> */}
         </div>
       ))}

@@ -1,0 +1,105 @@
+.basic_tabs {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+
+    :global(.adm-tabs) {
+        padding: 0 15px;
+    }
+
+    :global(.adm-space-item) {
+        margin-right: 5px;
+    }
+
+    :global(.adm-tabs-tab-list) {
+        width: 600px;
+    }
+
+    :global(.adm-tabs-tab) {
+        margin: 0;
+        font-size: 30px;
+        color: @hint-color;
+    }
+
+    :global(.adm-tabs-tab-active) {
+        color: #000;
+    }
+
+    :global(.adm-tabs-tab-line) {
+        transform: translate3d(0px, 0px, 0px);
+        background-image: linear-gradient(to right, #25D7BE, #29BAE2, #4E94EA);
+    }
+
+    :global(.adm-tabs-tab-wrapper) {
+        padding-right: 15px;
+        flex: none
+    }
+
+
+    :global(.adm-list-body) {
+        border: 0;
+        background-color: @background-color;
+    }
+
+}
+
+:global(.adm-list-body-inner) {
+    margin-top: 10px;
+}
+
+.macy_container {
+    width: 100%;
+
+    li {
+        width: 50%;
+        border: 1px solid #D8D8D8;
+        border-radius: 20px;
+
+        >img {
+            width: 100%;
+            padding: 10px;
+            border-radius: 20px;
+        }
+
+        >p {
+            font-size: 20px;
+            margin: 10px;
+            display: -webkit-box;
+            // 超出隐藏
+            overflow: hidden;
+            // 文本自动处理换行
+            white-space: normal !important;
+            // 多出省略
+            text-overflow: ellipsis;
+            // 允许长单词换行到下一行
+            word-wrap: break-word;
+            // 展示行数
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+
+        }
+    }
+
+    .mall10 {
+        margin: 10px;
+    }
+
+    .name {
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .count {
+        margin-left: 2px;
+        font-size: 20px;
+        vertical-align: middle;
+    }
+}
+
+.term_name {
+    margin-top: 5px;
+    width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

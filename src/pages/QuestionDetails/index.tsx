@@ -63,7 +63,7 @@ const Details = () => {
           <Grid columns={10} >
             <Grid.Item span={6}>
               <div className='flex justify-start'>
-                <div className={styles.maright} onClick={() => { nva(`/user/${data.user_id}`) }}><Avatar src={getRealImgUrl(data.face_url as string) as string} style={{ '--size': '40px', '--border-radius': '40px' }} /></div>
+                <div className={styles.maright} onClick={() => { nva(`/user/${data.s_user_id}`) }}><Avatar src={getRealImgUrl(data.face_url as string) as string} style={{ '--size': '40px', '--border-radius': '40px' }} /></div>
                 <div>
                   <p className={styles.mt}>{data.nickname}</p>
                   <p className={styles.desc}>发布于{data.publish_time} · {data.browse_count || 0}次阅读</p>
@@ -105,7 +105,7 @@ const Details = () => {
                     <Grid columns={10} >
                       <Grid.Item span={6}>
                         <div className='flex justify-start'>
-                          <div className={styles.maright} onClick={() => { nva(`/user/${item.user_id}`) }}>
+                          <div className={styles.maright} onClick={() => { nva(`/user/${item.s_user_id}`) }}>
                             <Avatar src={getRealImgUrl(item.face_url as string) as string} style={{ '--size': '40px', '--border-radius': '40px' }} />
                           </div>
                           <div>

@@ -9,6 +9,7 @@ export namespace White {
   export type SwitchType = 'right' | 'bottom' | 'scroll' | 'fade';
   type TabBarType = {
     icon: string;
+    activeIcon?: string;
     title: string;
   };
   export interface RouteConfig extends RouteProps {

@@ -1,9 +1,14 @@
 import { White } from '@/typings';
 import { lazy } from 'react';
 
-import HomeIcon from '@/assets/images/home.png'
-import MessageIcon from '@/assets/images/message.png'
-import MineIcon from '@/assets/images/mine.png'
+import HomeIconActive from '@/assets/images/tabviews-icon/home-active.png'
+import MessageIconActive from '@/assets/images/tabviews-icon/message-active.png'
+import MineIconActive from '@/assets/images/tabviews-icon/mine-active.png'
+
+import HomeIcon from '@/assets/images/tabviews-icon/home.png'
+import MessageIcon from '@/assets/images/tabviews-icon/message.png'
+import MineIcon from '@/assets/images/tabviews-icon/mine.png'
+
 
 const Mine = lazy(() => import(/* chunkName: "Search" */ '@/pages/Mine'));
 const Message = lazy(() => import(/* chunkName: List */ '@/pages/Message'));
@@ -21,6 +26,7 @@ export const TabBarList: White.RouteTabBar[] = [
     path: '/',
     component: Home,
     icon: HomeIcon,
+    activeIcon:HomeIconActive,
     sceneMode: 'scroll',
     title: '',
   },
@@ -28,6 +34,7 @@ export const TabBarList: White.RouteTabBar[] = [
     path: '/message',
     component: Message,
     icon: MessageIcon,
+    activeIcon:MessageIconActive,
     sceneMode: 'scroll',
     title: '',
   },
@@ -35,6 +42,7 @@ export const TabBarList: White.RouteTabBar[] = [
     path: '/mine',
     component: Mine,
     icon: MineIcon,
+    activeIcon:MineIconActive,
     sceneMode: 'scroll',
     title: '',
   },
@@ -55,7 +63,7 @@ const routes: White.RouteConfig[] = [
     component: CommentDetails,
   },
   {
-    path: '/user/:user_id',
+    path: '/user/:s_user_id',
     component: UserIndex,
   },
   {
