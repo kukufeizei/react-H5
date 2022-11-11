@@ -20,8 +20,42 @@
 
 ._nav {
     background-color: #fff;
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
+    height: 120px;
+    z-index: 9999;
+    padding: 20px 14px;
+
+    .title {
+        font-weight: bold;
+        font-size: 28px;
+    }
+
+    .desc {
+        color: gray;
+        font-size: 20px;
+    }
+
+    .mt {
+        margin-top: 8px;
+        padding-left: 10px;
+    }
+
+    .rightBtn {
+        line-height: 60px;
+        text-align: center;
+        margin-top: 10px;
+
+        >div {
+            background: linear-gradient(to right, #3FA5E6, #2FCFBD);
+            border-radius: 16px;
+            color: #fff;
+            border-radius: 30px;
+            width: 120px;
+            height: 60px;
+        }
+    }
+
 }

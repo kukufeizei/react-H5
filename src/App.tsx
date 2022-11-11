@@ -1,5 +1,5 @@
 import { unstable_HistoryRouter as Router } from 'react-router-dom';
-import TabBarView from '@/layout/TabBarView';
+// import TabBarView from '@/layout/TabBarView';
 import RouteRender from '@/routers/RouteRender';
 import history from '@/utils/history';
 
@@ -47,7 +47,7 @@ const App = () => {
     <>
       <Router history={history}>
         <RouteRender />
-        <TabBarView />
+        {/* <TabBarView /> */}
       </Router>
     </>
   );

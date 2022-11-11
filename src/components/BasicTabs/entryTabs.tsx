@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { memo, FC, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Macy from "macy"
 import Empty from '@/components/Empty'
-import styles from './index.module.less'
+import styles from './index2.module.less'
 
 import type { PropsTypes, ItemType } from './type'
 import type { ListParams } from '@/api/model/type'
@@ -16,10 +16,10 @@ import { useAliOssSystem } from '@/hooks/useAliOssSystem';
 
 import { randomColor, setSticky } from '@/utils';
 import { useSelector } from 'react-redux'
-import { newListApi, goodListApi, commentedListApi, goodCommentListApi } from '@/api/route'
-import { setAuth } from '@/utils/index';
+import { entryCommentListApi, entryNewsQuestionListApi, entryNewsGoodsListApi, entryNewsWaitCommentListApi } from '@/api/route'
 
 const BasicTabs: FC<PropsTypes> = (props) => {
+    const userIdParams = useParams()
     const [tabs, setTabs] = useState<string>('home_question')
     const [list, setList] = useState<ItemType[]>([])
     const [macy, setMacy] = useState<any>(null)
@@ -30,7 +30,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
 
     const [params, setParams] = useState<ListParams>({
         user_id: user.user.user_id,
-        term_id: -1,
+        term_id: userIdParams.term_id,
         prev_id: 0,
         prev_score: '0'
     })
@@ -38,26 +38,27 @@ const BasicTabs: FC<PropsTypes> = (props) => {
     const getList = async () => {
         let request;
         switch (tabs) {
+            case 'home_goodReply':
+                request = entryCommentListApi(params)
+                break;
             case 'home_question':
-                request = newListApi(params)
+                request = entryNewsQuestionListApi(params)
                 break;
             case 'home_goodQuestion':
-                request = goodListApi(params)
+                request = entryNewsGoodsListApi(params)
                 break;
             case 'home_waitReply':
-                request = commentedListApi(params)
-                break;
-            case 'home_goodReply':
-                request = goodCommentListApi(params)
+                request = entryNewsWaitCommentListApi(params)
                 break;
         }
 
         const data = await request
+
         setList(val => [...val, ...data.result.data])
 
         setParams({
             user_id: user.user.user_id,
-            term_id: -1,
+            term_id: userIdParams.term_id,
             prev_id: data.result.prev_id,
             prev_score: data.result.prev_score,
         })
@@ -119,10 +120,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
         if (['home_question', 'home_waitReply'].includes(tabs)) {
             // “新问题”和“待回复”下，item左下角显示term_name，
             return (
-                <p className={styles.term_name} onClick={() => {
-                    setAuth('entry', ele.term_name)
-                    nva(`/entry/${ele.term_id}`)
-                }}>{ele.term_name}</p>
+                <p className={styles.term_name}>{ele.term_name}</p>
             )
         } else {
             // 在“好问题”好“优质回复”下，item左下角显示用户昵称nickname和头像face_url，
@@ -168,9 +166,9 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                         macy.reInit()
                         setParams({
                             user_id: user.user.user_id,
-                            term_id: -1,
+                            term_id: userIdParams.term_id,
                             prev_id: 0,
-                            prev_score: '0',
+                            prev_score: '0'
                         })
                     }}
                 >
@@ -192,15 +190,15 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                                     ?
                                     list.map((ele, i) => {
                                         return (
-                                            <li key={i} >
+                                            <li key={i} onClick={() => {
+                                                nva(`/details/${ele.timeline_id}`)
+                                            }}>
 
                                                 {
                                                     ele.image_list ? <img src={getRealImgUrl(ele.image_list[0].url as string)} /> : <p>{ele.text}</p>
                                                 }
 
-                                                <p style={{ fontWeight: 'bold' }} onClick={() => {
-                                                    nva(`/details/${ele.timeline_id}`)
-                                                }}>{ele.title || ele.superior_info}</p>
+                                                <p style={{ fontWeight: 'bold' }}>{ele.title || ele.superior_info}</p>
                                                 <div className={`flex justify-between ${styles.mall10}`}>
                                                     <div className={`flex justify-center items-center ${styles.name}`} style={{ color: randomColor() }}>
                                                         {leftDownData(ele)}
@@ -215,7 +213,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                             }
                         </ul>
                     </List>
-                    <InfiniteScroll loadMore={loadMore} hasMore={hasMore} threshold={550} />
+                    <InfiniteScroll loadMore={loadMore} hasMore={hasMore} threshold={250} />
                 </div>
             </div>
         </>

@@ -12,6 +12,7 @@ import type { ReplyListType, QuestionDataType } from './type'
 import Nav from '@/components/NavBar'
 import styles from './index.module.less'
 import MultiImageViewer from '@/components/MultiImageViewer';
+import default_face from '@/assets/images/default_face.png'
 
 const Details = () => {
   const { getRealImgUrl } = useAliOssSystem();
@@ -63,7 +64,12 @@ const Details = () => {
           <Grid columns={10} >
             <Grid.Item span={6}>
               <div className='flex justify-start'>
-                <div className={styles.maright} onClick={() => { nva(`/user/${data.s_user_id}`) }}><Avatar src={getRealImgUrl(data.face_url as string) as string} style={{ '--size': '40px', '--border-radius': '40px' }} /></div>
+                <div className={styles.maright} onClick={() => { nva(`/user/${data.s_user_id}`) }}>
+                  <Avatar
+                    src={getRealImgUrl(data.face_url as string) as string}
+                    fallback={default_face}
+                    style={{ '--size': '40px', '--border-radius': '40px' }} />
+                </div>
                 <div>
                   <p className={styles.mt}>{data.nickname}</p>
                   <p className={styles.desc}>发布于{data.publish_time} · {data.browse_count || 0}次阅读</p>
@@ -130,6 +136,7 @@ const Details = () => {
                     <p style={{ marginBottom: '10px' }}>{item.text || ''}</p>
                     <div>
                       {
+
                         JSON.stringify(item.image_list) && item.image_list.map((e, i) => (
                           <Image key={i} src={getRealImgUrl(e.url as string) as string} className={styles.imgs} fit='cover' />
                         ))
@@ -157,6 +164,9 @@ const Details = () => {
                         )
                       })
                     }
+                    {
+                      list[index].comment_count > 5 && <div className={styles.more}>查看更多回复 </div>
+                    }
                   </div>
                 </div>
               )
@@ -166,6 +176,7 @@ const Details = () => {
           <InfiniteScroll loadMore={loadMore} hasMore={hasMore} threshold={250} />
 
         </div>
+
       </div>
     </div >
   );

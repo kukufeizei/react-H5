@@ -67,3 +67,19 @@ export const userCollectedTimelineListApi = (params?: UserListParams) =>
 /* 获取用户历史回复列表 */
 export const userCommentListApi = (params?: UserListParams) =>
   request.post('/society/load_user_comment_list', params);
+
+/* 获取词条优质回复列表 */
+export const entryCommentListApi = (params?: ListParams) =>
+  request.post('/society/load_recommended_comment_list', params);
+
+/* 获取词条新问题列表 */
+export const entryNewsQuestionListApi = (params?: ListParams) =>
+  request.post('/society/load_most_recent_timeline_list', params);
+
+/* 获取词条好问题列表 */
+export const entryNewsGoodsListApi = (params?: ListParams) =>
+  request.post('/society/load_recommended_timeline_list', params);
+
+/* 获取词条待回复列表 */
+export const entryNewsWaitCommentListApi = (params?: ListParams) =>
+  request.post('/society/load_not_commented_timeline_list', params);

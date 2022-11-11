@@ -17,6 +17,8 @@ const Index = lazy(() => import(/* chunkName: Index */ '@/pages/Index'));
 const QuestionDetails = lazy(() => import(/* chunkName: QuestionDetails */ '@/pages/QuestionDetails'));
 const CommentDetails = lazy(() => import(/* chunkName: CommentDetails */ '@/pages/CommentDetails'));
 const UserIndex = lazy(() => import(/* chunkName: UserIndex */ '@/pages/UserIndex'));
+const Entry = lazy(() => import(/* chunkName: UserIndex */ '@/pages/entryTabs'));
+
 
 const NoFound = lazy(
   () => import(/* chunkName: NoFound */ '../components/NoFound'),
@@ -26,7 +28,7 @@ export const TabBarList: White.RouteTabBar[] = [
     path: '/',
     component: Home,
     icon: HomeIcon,
-    activeIcon:HomeIconActive,
+    activeIcon: HomeIconActive,
     sceneMode: 'scroll',
     title: '',
   },
@@ -34,7 +36,7 @@ export const TabBarList: White.RouteTabBar[] = [
     path: '/message',
     component: Message,
     icon: MessageIcon,
-    activeIcon:MessageIconActive,
+    activeIcon: MessageIconActive,
     sceneMode: 'scroll',
     title: '',
   },
@@ -42,7 +44,7 @@ export const TabBarList: White.RouteTabBar[] = [
     path: '/mine',
     component: Mine,
     icon: MineIcon,
-    activeIcon:MineIconActive,
+    activeIcon: MineIconActive,
     sceneMode: 'scroll',
     title: '',
   },
@@ -65,6 +67,10 @@ const routes: White.RouteConfig[] = [
   {
     path: '/user/:s_user_id',
     component: UserIndex,
+  },
+  {
+    path: '/entry/:term_id',
+    component: Entry,
   },
   {
     path: '*',
