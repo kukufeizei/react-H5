@@ -10,7 +10,7 @@ import styles from './index.module.less'
 import type { PropsTypes, ItemType } from './type'
 import type { ListParams } from '@/api/model/type'
 
-import { Tabs, Badge, InfiniteScroll, List, Avatar } from 'antd-mobile';
+import { Tabs, Badge, InfiniteScroll, List, Avatar, Image } from 'antd-mobile';
 import { MessageOutline, LikeOutline } from 'antd-mobile-icons'
 import { useAliOssSystem } from '@/hooks/useAliOssSystem';
 
@@ -18,7 +18,7 @@ import { randomColor, setSticky } from '@/utils';
 import { useSelector } from 'react-redux'
 import { newListApi, goodListApi, commentedListApi, goodCommentListApi } from '@/api/route'
 import { setAuth } from '@/utils/index';
-
+import fallbackImg from '@/assets/images/1.jpg'
 const BasicTabs: FC<PropsTypes> = (props) => {
     const [tabs, setTabs] = useState<string>('home_question')
     const [list, setList] = useState<ItemType[]>([])
@@ -26,6 +26,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
     const [hasMore, setHasMore] = useState(false)
     const nva = useNavigate();
     const { user } = useSelector(state => state)
+
     const { getRealImgUrl } = useAliOssSystem();
 
     const [params, setParams] = useState<ListParams>({
@@ -34,55 +35,6 @@ const BasicTabs: FC<PropsTypes> = (props) => {
         prev_id: 0,
         prev_score: '0'
     })
-    // 获取列表数据
-    const getList = async () => {
-        let request;
-        switch (tabs) {
-            case 'home_question':
-                request = newListApi(params)
-                break;
-            case 'home_goodQuestion':
-                request = goodListApi(params)
-                break;
-            case 'home_waitReply':
-                request = commentedListApi(params)
-                break;
-            case 'home_goodReply':
-                request = goodCommentListApi(params)
-                break;
-        }
-
-        const data = await request
-        setList(val => [...val, ...data.result.data])
-
-        setParams({
-            user_id: user.user.user_id,
-            term_id: -1,
-            prev_id: data.result.prev_id,
-            prev_score: data.result.prev_score,
-        })
-
-    }
-    // 加載更多
-    const loadMore = async () => {
-        setHasMore(params.prev_id! >= 0)
-        if (params.prev_id! >= 0) {
-            await getList()
-        }
-    }
-    useEffect(() => {
-        loadMore()
-    }, [tabs])
-
-    // 设置粘性tabs
-    useEffect(() => {
-
-        setSticky(
-            document.getElementsByClassName('adm-tabs',)[0] as HTMLElement,
-            props.tabsColor as string,
-            props.tabsTop
-        )
-    }, [])
 
     // 初始化macy
     const InitMacy = () => {
@@ -111,9 +63,57 @@ const BasicTabs: FC<PropsTypes> = (props) => {
     }
 
     useEffect(() => {
-
         InitMacy()
     }, [list])
+    // 获取列表数据
+    const getList = async () => {
+        let request;
+        switch (tabs) {
+            case 'home_question':
+                request = newListApi(params)
+                break;
+            case 'home_goodQuestion':
+                request = goodListApi(params)
+                break;
+            case 'home_waitReply':
+                request = commentedListApi(params)
+                break;
+            case 'home_goodReply':
+                request = goodCommentListApi(params)
+                break;
+        }
+
+        const data = await request
+        setList(val => [...val, ...data.result.data])
+        setParams({
+            user_id: user.user.user_id,
+            term_id: -1,
+            prev_id: data.result.prev_id,
+            prev_score: data.result.prev_score,
+        })
+
+    }
+    // 加載更多
+    const loadMore = async () => {
+        setHasMore(params.prev_id! >= 0)
+        if (params.prev_id! >= 0) {
+            await getList()
+        }
+    }
+    useEffect(() => {
+        InitMacy()
+        loadMore()
+    }, [tabs])
+
+    // 设置粘性tabs
+    useEffect(() => {
+        setSticky(
+            document.getElementsByClassName('adm-tabs',)[0] as HTMLElement,
+            props.tabsColor as string,
+            props.tabsTop
+        )
+    }, [])
+
 
     const leftDownData = (ele: any) => {
         if (['home_question', 'home_waitReply'].includes(tabs)) {
@@ -165,7 +165,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                     onChange={key => {
                         setTabs(key)
                         setList([])
-                        macy.reInit()
+                        // macy.reInit()
                         setParams({
                             user_id: user.user.user_id,
                             term_id: -1,
@@ -186,7 +186,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                 </Tabs>
                 <div style={{ padding: '10px', overflowY: 'auto' }}>
                     <List>
-                        <ul className={`macy_container ${styles.macy_container}`}>
+                        <ul className={`macy_container ${styles.macy_container} flex flex-wrap`}>
                             {
                                 list.length
                                     ?
@@ -195,7 +195,13 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                                             <li key={i} >
 
                                                 {
-                                                    ele.image_list ? <img src={getRealImgUrl(ele.image_list[0].url as string)} /> : <p>{ele.text}</p>
+                                                    ele.image_list ?
+                                                        <Image fallback={fallbackImg} fit='cover'
+                                                            src={getRealImgUrl(ele.image_list[0].url as string)}
+                                                            lazy={false}
+                                                            height={'auto'}
+                                                            width={'100%'} />
+                                                        : <p>{ele.text}</p>
                                                 }
 
                                                 <p style={{ fontWeight: 'bold' }} onClick={() => {
@@ -215,7 +221,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                             }
                         </ul>
                     </List>
-                    <InfiniteScroll loadMore={loadMore} hasMore={hasMore} threshold={550} />
+                    <InfiniteScroll loadMore={loadMore} hasMore={hasMore} threshold={700} />
                 </div>
             </div>
         </>

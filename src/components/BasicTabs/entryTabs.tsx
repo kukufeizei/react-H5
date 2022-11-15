@@ -184,7 +184,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                 </Tabs>
                 <div style={{ padding: '10px', overflowY: 'auto' }}>
                     <List>
-                        <ul className={`macy_container ${styles.macy_container}`}>
+                        <ul className={`macy_container ${styles.macy_container} flex flex-wrap`}>
                             {
                                 list.length
                                     ?
