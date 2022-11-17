@@ -19,6 +19,7 @@ export namespace White {
     sceneMode?: SwitchType;
     title?: string;
     path: string;
+    cache?: boolean;
     component: ComponentClass<any> | FunctionComponent<any>;
   }
   export type RouteTabBar = RouteConfig & TabBarType;

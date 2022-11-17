@@ -55,6 +55,7 @@ const routes: White.RouteConfig[] = [
     path: '/',
     component: Index,
     tabBars: TabBarList,
+    cache: true
   },
   {
     path: '/details/:timeline_id',

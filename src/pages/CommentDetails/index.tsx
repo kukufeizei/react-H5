@@ -30,18 +30,20 @@ const Details = () => {
   const getDetails = async () => {
     const res = await commentDetailsApi(initParams)
 
-    // 回复列表
-    setList(val => [...val, ...res.result.data.slice(1)])
+    if (!(JSON.stringify(res.result.data) === JSON.stringify(list))) {
+      setList(val => [...val, ...res.result.data])
+    }
+
     setInitParams({
       user_id: getAuth('user_id') as string,
       comment_id: params.comment_id,
       prev_id: res.result.prev_id,
       prev_score: res.result.prev_score
     })
+
   }
   // 加載更多
   const loadMore = async () => {
-    getDetails()
     setHasMore(initParams.prev_id! >= 0)
     if (initParams.prev_id! >= 0) {
       await getDetails()

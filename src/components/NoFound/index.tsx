@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import './index.less';
 import image from '@/assets/images/common/404.png';
 // 404

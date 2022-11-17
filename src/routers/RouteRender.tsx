@@ -12,8 +12,11 @@ const generateRoute = ({
   path,
   component: Component,
   tabBars,
+  cache,
   ...other
-}: White.RouteConfig) => (
+}: White.RouteConfig) =>
+
+(
   <Route path={path} key={path} element={<Component />} {...other}>
     {(routes || tabBars)?.map((v) => generateRoute(v))}
   </Route>

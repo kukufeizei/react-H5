@@ -14,6 +14,7 @@ specifiers:
   '@vitejs/plugin-react': ^1.1.4
   ali-oss: ^6.17.1
   antd-mobile: 5.23.0
+  antd-mobile-icons: ^0.3.0
   autoprefixer: ^10.4.2
   axios: ^0.21.4
   eslint: ^7.32.0
@@ -59,6 +60,7 @@ dependencies:
   '@types/prop-types': 15.7.5
   ali-oss: 6.17.1
   antd-mobile: 5.23.0_sfoxds7t5ydpegc3knd667wn6m
+  antd-mobile-icons: 0.3.0
   axios: 0.21.4
   history: 5.3.0
   lib-flexible: 0.3.2
@@ -1031,7 +1033,7 @@ packages:
     dev: true
 
   /antd-mobile-icons/0.3.0:
-    resolution: {integrity: sha512-rqINQpJWZWrva9moCd1Ye695MZYWmqLPE+bY8d2xLRy7iSQwPsinCdZYjpUPp2zL/LnKYSyXxP2ut2A+DC+whQ==}
+    resolution: {integrity: sha512-rqINQpJWZWrva9moCd1Ye695MZYWmqLPE+bY8d2xLRy7iSQwPsinCdZYjpUPp2zL/LnKYSyXxP2ut2A+DC+whQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npm.taobao.org/antd-mobile-icons/-/antd-mobile-icons-0.3.0.tgz}
     dev: false
 
   /antd-mobile-v5-count/1.0.1:

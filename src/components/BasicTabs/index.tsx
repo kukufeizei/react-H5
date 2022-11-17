@@ -17,8 +17,10 @@ import { useAliOssSystem } from '@/hooks/useAliOssSystem';
 import { randomColor, setSticky } from '@/utils';
 import { useSelector } from 'react-redux'
 import { newListApi, goodListApi, commentedListApi, goodCommentListApi } from '@/api/route'
-import { setAuth } from '@/utils/index';
-import fallbackImg from '@/assets/images/1.jpg'
+import { setAuth, getAuth } from '@/utils/index';
+import useWindowSize from '@/hooks/useWindoSize'
+
+
 const BasicTabs: FC<PropsTypes> = (props) => {
     const [tabs, setTabs] = useState<string>('home_question')
     const [list, setList] = useState<ItemType[]>([])
@@ -26,9 +28,8 @@ const BasicTabs: FC<PropsTypes> = (props) => {
     const [hasMore, setHasMore] = useState(false)
     const nva = useNavigate();
     const { user } = useSelector(state => state)
-
+    const { width } = useWindowSize()
     const { getRealImgUrl } = useAliOssSystem();
-
     const [params, setParams] = useState<ListParams>({
         user_id: user.user.user_id,
         term_id: -1,
@@ -38,20 +39,15 @@ const BasicTabs: FC<PropsTypes> = (props) => {
 
     // 初始化macy
     const InitMacy = () => {
-        // 没数据直接删掉监听
-        if (!list.length && macy) {
-            macy.remove();
-            return
-        }
-
         if (!macy) {
             setMacy(
                 new Macy({
                     container: ".macy_container",
                     trueOrder: false,
                     mobileFirst: true,
-                    waitForImages: false,
+                    waitForImages: true,
                     margin: { x: 10, y: 10 },
+                    debug: true,
                     columns: 2 // 设置列数
                 })
             )
@@ -84,7 +80,11 @@ const BasicTabs: FC<PropsTypes> = (props) => {
         }
 
         const data = await request
-        setList(val => [...val, ...data.result.data])
+
+        if (!(JSON.stringify(data.result.data) === JSON.stringify(list))) {
+            setList(val => [...val, ...data.result.data])
+        }
+
         setParams({
             user_id: user.user.user_id,
             term_id: -1,
@@ -101,8 +101,15 @@ const BasicTabs: FC<PropsTypes> = (props) => {
         }
     }
     useEffect(() => {
-        InitMacy()
+        if (getAuth(tabs) && getAuth(`${tabs}params`)) {
+            setList(JSON.parse(getAuth(tabs) as string))
+            setParams(JSON.parse(getAuth(`${tabs}params`) as string))
+            JSON.parse(getAuth(`${tabs}params`) as string).prev_id >= 0 && loadMore()
+            return;
+        }
+
         loadMore()
+
     }, [tabs])
 
     // 设置粘性tabs
@@ -115,6 +122,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
     }, [])
 
 
+    // 不同頁面渲染逻辑
     const leftDownData = (ele: any) => {
         if (['home_question', 'home_waitReply'].includes(tabs)) {
             // “新问题”和“待回复”下，item左下角显示term_name，
@@ -156,30 +164,86 @@ const BasicTabs: FC<PropsTypes> = (props) => {
         }
     }
 
+    // 获取图片占位宽高
+    const getImgWidth = () => {
+        return (width - 24) / 2
+    }
+
+    const getImgHeight = (w: number, h: number) => {
+        if (!w || !h) return 0
+        // 宽高比
+        const sacle: number = w / h
+        return ((width - 24) / 2) / sacle
+    }
+
+    // 切换tabs
+    const handleChangeTabs = (key: string) => {
+        setTabs(key)
+        setAuth(tabs, JSON.stringify(list))
+        setAuth(`${tabs}params`, JSON.stringify(params))
+        setList([])
+        setParams({
+            user_id: user.user.user_id,
+            term_id: -1,
+            prev_id: 0,
+            prev_score: '0',
+        })
+    }
+
+    let startY: any, endY: any
+    // touch事件
+    const handleTouchStart = (e: any) => {
+        startY = e.touches[0].clientX
+    };
+    const handleTouchMove = (e: any) => {
+        endY = e.touches[0].clientX
+    };
+    const handleTouchEnd = (e: any) => {
+        // 获取滑动范围
+        if (startY > -1 && endY > -1) {
+            if (Math.abs(startY - endY) > 3) {
+
+                if (startY > endY) {
+
+                    const index = props.tabsItem!.findIndex((val) => {
+                        return val.key === tabs
+                    })
+                    if (index >= props.tabsItem!.length - 1) return
+                    handleChangeTabs(props.tabsItem![index + 1].key)
+                    startY = -1
+                    endY = -1
+
+                } else {
+
+                    const index = props.tabsItem!.findIndex((val) => {
+                        return val.key === tabs
+                    })
+                    if (index <= 0) return
+                    handleChangeTabs(props.tabsItem![index - 1].key)
+                    startY = -1
+                    endY = -1
+                }
+            }
+        }
+
+
+
+    };
 
     return (
         <>
-            <div className={styles.basic_tabs}>
+            <div className={styles.basic_tabs} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
                 <Tabs
                     defaultActiveKey={tabs}
-                    onChange={key => {
-                        setTabs(key)
-                        setList([])
-                        // macy.reInit()
-                        setParams({
-                            user_id: user.user.user_id,
-                            term_id: -1,
-                            prev_id: 0,
-                            prev_score: '0',
-                        })
-                    }}
+                    activeKey={tabs}
+                    onChange={key => handleChangeTabs(key)}
                 >
                     {props.tabsItem!.map(item => (
-                        <Tabs.Tab title={
+                        <Tabs.Tab key={item.key} title={
                             <Badge content={item.count || ''} style={{ '--right': '-10px', '--top': '8px' }}>
                                 {item.title}
                             </Badge>
-                        } key={item.key}
+                        }
                         />
                     ))}
 
@@ -196,17 +260,20 @@ const BasicTabs: FC<PropsTypes> = (props) => {
 
                                                 {
                                                     ele.image_list ?
-                                                        <Image fallback={fallbackImg} fit='cover'
+                                                        <Image fit='cover'
+                                                            onClick={() => {
+                                                                nva(`/details/${ele.timeline_id}`)
+                                                            }}
                                                             src={getRealImgUrl(ele.image_list[0].url as string)}
-                                                            lazy={false}
-                                                            height={'auto'}
-                                                            width={'100%'} />
-                                                        : <p>{ele.text}</p>
+                                                            width={getImgWidth()}
+                                                            height={getImgHeight(ele.image_list[0].width as number, ele.image_list[0].height as number)}
+                                                        />
+                                                        : <p onClick={() => {
+                                                            nva(`/details/${ele.timeline_id}`)
+                                                        }}>{ele.text}</p>
                                                 }
 
-                                                <p style={{ fontWeight: 'bold' }} onClick={() => {
-                                                    nva(`/details/${ele.timeline_id}`)
-                                                }}>{ele.title || ele.superior_info}</p>
+                                                <p style={{ fontWeight: 'bold' }} >{ele.title || ele.superior_info}</p>
                                                 <div className={`flex justify-between ${styles.mall10}`}>
                                                     <div className={`flex justify-center items-center ${styles.name}`} style={{ color: randomColor() }}>
                                                         {leftDownData(ele)}
@@ -221,7 +288,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                             }
                         </ul>
                     </List>
-                    <InfiniteScroll loadMore={loadMore} hasMore={hasMore} threshold={700} />
+                    <InfiniteScroll loadMore={loadMore} hasMore={hasMore} threshold={500} />
                 </div>
             </div>
         </>
