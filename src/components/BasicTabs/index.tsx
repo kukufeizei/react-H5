@@ -125,7 +125,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
     // 不同頁面渲染逻辑
     const leftDownData = (ele: any) => {
         if (['home_question', 'home_waitReply'].includes(tabs)) {
-            // “新问题”和“待回复”下，item左下角显示term_name，
+            // “新问题”和“待回复”下，item左下角显示term_name
             return (
                 <p className={styles.term_name} onClick={() => {
                     setAuth('entry', ele.term_name)
@@ -133,7 +133,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                 }}>{ele.term_name}</p>
             )
         } else {
-            // 在“好问题”好“优质回复”下，item左下角显示用户昵称nickname和头像face_url，
+            // 在“好问题”好“优质回复”下，item左下角显示用户昵称nickname和头像face_url
             return (
                 <div style={{ display: 'flex', marginTop: '5px' }}>
                     <Avatar src={getRealImgUrl(ele.face_url as string) as string} style={{ '--size': '20px', '--border-radius': '20px' }} />
@@ -179,7 +179,9 @@ const BasicTabs: FC<PropsTypes> = (props) => {
     // 切换tabs
     const handleChangeTabs = (key: string) => {
         setTabs(key)
-        setAuth(tabs, JSON.stringify(list))
+        if (!tabs) {
+            setAuth(tabs, JSON.stringify(list))
+        }
         setAuth(`${tabs}params`, JSON.stringify(params))
         setList([])
         setParams({
@@ -193,16 +195,15 @@ const BasicTabs: FC<PropsTypes> = (props) => {
     let startY: any, endY: any
     // touch事件
     const handleTouchStart = (e: any) => {
-        startY = e.touches[0].clientX
+        startY = e.changedTouches[0].clientX
     };
     const handleTouchMove = (e: any) => {
-        endY = e.touches[0].clientX
+        endY = e.changedTouches[0].clientX
     };
     const handleTouchEnd = (e: any) => {
         // 获取滑动范围
         if (startY > -1 && endY > -1) {
-            if (Math.abs(startY - endY) > 3) {
-
+            if (Math.abs(startY - endY) > 100) {
                 if (startY > endY) {
 
                     const index = props.tabsItem!.findIndex((val) => {
