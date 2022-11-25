@@ -135,8 +135,8 @@ const Details = () => {
                     src={getRealImgUrl(e.url as string) as string}
                     className={styles.imgs}
                     fit='cover'
-                    width={getImgWidth()}
-                    height={getImgHeight(e.width as number, e.height as number)}
+                  // width={getImgWidth()}
+                  // height={getImgHeight(e.width as number, e.height as number)}
                   />
                 ))
               }

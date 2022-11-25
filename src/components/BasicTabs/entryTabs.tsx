@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import Macy from "macy"
 import Empty from '@/components/Empty'
-import styles from './index.module.less'
+import styles from './index2.module.less'
 
 import type { PropsTypes, ItemType } from './type'
 import type { ListParams } from '@/api/model/type'
