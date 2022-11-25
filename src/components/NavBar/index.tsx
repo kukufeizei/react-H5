@@ -22,6 +22,15 @@ const Nav: FC<NavTitleType> = (props) => {
     //         </Space>
     //     </div>
     // )
+    const download = () => {
+        
+        const ua = navigator.userAgent.toLowerCase();
+        // 微信中打开
+        // @ts-ignore
+        if (ua.match(/MicroMessenger/i) && ua.match(/MicroMessenger/i) == "micromessenger") {
+            window.location.href = "../../../download/index.html";
+        }
+    }
     return (
         <div className={styles._nav}>
             <Grid columns={18} gap={0}>
@@ -35,7 +44,7 @@ const Nav: FC<NavTitleType> = (props) => {
                     </div>
                 </Grid.Item>
                 <Grid.Item span={3}>
-                    <div className={styles.rightBtn}>
+                    <div className={styles.rightBtn} onClick={() => download()} >
                         <div>
                             打开APP
                         </div>

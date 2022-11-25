@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜词</title>
+    <link rel="stylesheet" href="./index.css" type="text/css" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="content">
+            <img src="./img/logo.png" alt="" class="logo">
+            <p class="title">搜 词</p>
+            <p class="desc">4.61分 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5231次下载 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 32.7MB</p>
+
+            <div class="mt80">
+                <div class="btn">通过应用宝下载</div>
+                <div class="btn">通过第三方浏览器下载</div>
+            </div>
+        </div>
+    </div>
+    <div class="mark" id="mark">
+        <div>
+            <img src="./img/icon.png" alt="" class="icon">
+            <div class="ml poa">
+                <div class="flex">
+                    <img src="./img/earth.png" alt="" class="earth">
+                    <div>点击右上角选择浏览器打开</div>
+                </div>
+                <div class="tips">如浏览器打开失败，请移步桌面直接打开应用</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dom = document.getElementById('mark')
+        const ua = navigator.userAgent.toLowerCase();
+        if (ua.match(/MicroMessenger/i) && ua.match(/MicroMessenger/i) == "micromessenger") {
+            dom.style.display = 'block';
+        } else {
+            dom.style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

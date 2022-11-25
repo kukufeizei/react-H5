@@ -7,7 +7,7 @@ module.exports = {
       rootValue: 75,
       unitPrecision: 5,
       propList: ['*'],
-      exclude: /node_modules/,
+      exclude: /download/,
     }),
   ],
 };
