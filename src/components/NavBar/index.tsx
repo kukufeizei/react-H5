@@ -11,6 +11,7 @@ interface NavTitleType {
 }
 const Nav: FC<NavTitleType> = (props) => {
     const download = () => {
+        
         const ua = navigator.userAgent.toLowerCase();
         // 微信中打开
         // @ts-ignore

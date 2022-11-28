@@ -63,7 +63,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
     const getList = async () => {
 
         const data = await newListApi(params)
-
+        
         if (!(JSON.stringify(data.result.data) === JSON.stringify(list))) {
             setList(val => [...val, ...data.result.data])
         }

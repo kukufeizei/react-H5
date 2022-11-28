@@ -57,6 +57,7 @@ const Details = () => {
 
   useEffect(() => {
     loadMore()
+    document.documentElement.scrollTop = 0
   }, [])
 
   // 获取图片占位宽高
