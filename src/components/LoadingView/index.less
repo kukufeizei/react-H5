@@ -1,5 +1,5 @@
 .la-square-jelly-box,
-.la-square-jelly-box > div {
+.la-square-jelly-box>div {
   position: relative;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -16,21 +16,21 @@
   color: #333;
 }
 
-.la-square-jelly-box > div {
+.la-square-jelly-box>div {
   display: inline-block;
   float: none;
   background-color: currentColor;
   border: 0 solid currentColor;
 }
 
-.la-square-jelly-box > div:nth-child(1),
-.la-square-jelly-box > div:nth-child(2) {
+.la-square-jelly-box>div:nth-child(1),
+.la-square-jelly-box>div:nth-child(2) {
   position: absolute;
   left: 0;
   width: 100%;
 }
 
-.la-square-jelly-box > div:nth-child(1) {
+.la-square-jelly-box>div:nth-child(1) {
   top: -25%;
   z-index: 1;
   height: 100%;
@@ -41,7 +41,7 @@
   animation: square-jelly-box-animate 0.6s -0.1s linear infinite;
 }
 
-.la-square-jelly-box > div:nth-child(2) {
+.la-square-jelly-box>div:nth-child(2) {
   bottom: -9%;
   height: 10%;
   background: #000;
@@ -200,4 +200,10 @@
     -o-transform: scale(1.25, 1) translateZ(0);
     transform: scale(1.25, 1) translateZ(0);
   }
+}
+
+
+.fullBody {
+  margin-top: 200px;
+  height: 800px;
 }

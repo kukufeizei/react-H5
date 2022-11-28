@@ -32,8 +32,6 @@ const Home = () => {
     }
   ]
   useEffect(() => {
-    console.log(2213);
-    
     setTimeout(() => {
       document.documentElement.scrollTop = getAuth('scroll')
     }, 200)

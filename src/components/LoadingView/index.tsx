@@ -17,12 +17,11 @@ const LoadingView: FC<LoadingViewProps> = ({
 }) => {
   return (
     <div
-      className={`flex flex-col justify-center items-center fullBody ${
-        className ?? (isPage && 'page_loading_body')
-      }`}>
+      className={`flex flex-col justify-center items-center fullBody ${className ?? (isPage && 'page_loading_body')
+        }`}>
       <div
         className="la-square-jelly-box"
-        style={{ height: height ?? 30, width: width ?? 30 }}>
+        style={{ height: height ?? 40, width: width ?? 40 }}>
         <div />
         <div />
       </div>

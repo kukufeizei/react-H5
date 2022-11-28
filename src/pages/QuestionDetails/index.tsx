@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { memo, useEffect, useRef, useState } from 'react';
+import { createRef, memo, useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'
 import { Divider, Grid, Avatar, Image, InfiniteScroll } from 'antd-mobile'
 import { LikeOutline } from 'antd-mobile-icons'
@@ -23,6 +23,7 @@ const Details = () => {
   const [hasMore, setHasMore] = useState(false)
   const { width } = useWindowSize()
   const childRef = useRef<any>(null)
+  const itemsRef = useRef<any>([])
   const params = useParams()
   const nva = useNavigate();
   const [initParams, setInitParams] = useState({
@@ -82,11 +83,14 @@ const Details = () => {
   }
 
   // 点击预览图片
-  const handleClickImg = (e: any) => {
+  const handleClickImg = (e: any, type: string, index?: number,) => {
     const ev = e || window.event
     ev.stopPropagation()
-    childRef.current!.set(true);
-    // setDisplay(!display)
+    if (type === 'title') {
+      childRef.current!.set(true);
+      return
+    }
+    itemsRef.current[index as number]!.set(true);
   }
 
   return (
@@ -128,7 +132,7 @@ const Details = () => {
         </div>
         {
           JSON.stringify(data.image_list) && (
-            <div className={styles.mt20} onClick={(e) => handleClickImg(e)} >
+            <div className={styles.mt20} onClick={(e) => handleClickImg(e, 'title')} >
               {
                 data.image_list.map((e, i) => (
                   <Image
@@ -181,7 +185,7 @@ const Details = () => {
                     setAuth('commit', JSON.stringify(item))
                   }}>
                     <p style={{ marginBottom: '10px' }}>{item.text || ''}</p>
-                    <div onClick={(e) => handleClickImg(e)}>
+                    <div onClick={(e) => handleClickImg(e, 'details', index)}>
                       {
 
                         JSON.stringify(item.image_list) && item.image_list.map((e, i) => (
@@ -194,7 +198,7 @@ const Details = () => {
                           />
                         ))
                       }
-                      {item.image_list && <MultiImageViewer list={item.image_list.map((item) => item.url)} ref={childRef} />}
+                      {item.image_list && <MultiImageViewer list={item.image_list.map((item) => item.url)} ref={(el: any) => { itemsRef.current[index] = el }} />}
 
                     </div>
                     {/* 二级回复 */}
