@@ -22,7 +22,6 @@ import useWindowSize from '@/hooks/useWindoSize'
 
 const BasicTabs: FC<PropsTypes> = (props) => {
     const [list, setList] = useState<ItemType[]>([])
-    const [scroll, setScroll] = useState(0)
     const [macy, setMacy] = useState<any>(null)
     const [hasMore, setHasMore] = useState(false)
     const nva = useNavigate();
@@ -79,6 +78,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
     }
     // 加載更多
     const loadMore = async () => {
+        // setHasMore(false)
         setHasMore(params.prev_id! >= 0)
         if (params.prev_id! >= 0) {
             await getList()
@@ -93,6 +93,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
     const leftDownData = (ele: any) => {
         return (
             <p className={styles.term_name} onClick={() => {
+                setAuth('scroll', document.documentElement.scrollTop)
                 setAuth('entry', ele.term_name)
                 nva(`/entry/${ele.term_id}`)
             }}>{ele.term_name}</p>
@@ -136,6 +137,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                                                 ele.image_list ?
                                                     <Image fit='cover'
                                                         onClick={() => {
+                                                            setAuth('scroll', document.documentElement.scrollTop)
                                                             nva(`/details/${ele.timeline_id}`)
                                                         }}
                                                         src={getRealImgUrl(ele.image_list[0].url as string)}
@@ -143,6 +145,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                                                         height={getImgHeight(ele.image_list[0].width as number, ele.image_list[0].height as number)}
                                                     />
                                                     : <p onClick={() => {
+                                                        setAuth('scroll', document.documentElement.scrollTop)
                                                         nva(`/details/${ele.timeline_id}`)
                                                     }}>{ele.text}</p>
                                             }

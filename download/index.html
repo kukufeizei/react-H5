@@ -36,13 +36,24 @@
     </div>
 
     <script>
-        const dom = document.getElementById('mark')
         const ua = navigator.userAgent.toLowerCase();
-        if (ua.match(/MicroMessenger/i) && ua.match(/MicroMessenger/i) == "micromessenger") {
+        const dom = document.getElementById('mark')
+        var searchURL = window.location.search;
+        searchURL = searchURL.substring(1, searchURL.length);
+        var targetPageId = searchURL.split("&")[0].split("=")[1];
+        if (targetPageId === 'wx') {
             dom.style.display = 'block';
+            if (ua.match(/MicroMessenger/i) && ua.match(/MicroMessenger/i) == "micromessenger") {
+                dom.style.display = 'block';
+            } else {
+                dom.style.display = 'none';
+                window.location.href = "http://192.168.1.12:3100/";
+            }
         } else {
             dom.style.display = 'none';
         }
+
+
     </script>
 </body>
 

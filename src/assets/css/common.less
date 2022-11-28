@@ -13,6 +13,7 @@ body {
   -webkit-overflow-scroll: touch;
   line-height: normal;
   background-color: @background-color;
+  overflow-y: scroll;
 }
 
 ul,
@@ -62,21 +63,15 @@ i {
 }
 
 .fullPage {
-  height: calc(@height-primary);
+  // height: calc(@height-primary);
   width: 100vw;
   padding-bottom: calc(constant(safe-area-inset-bottom));
   padding-bottom: calc(env(safe-area-inset-bottom));
   box-sizing: border-box;
-  position: absolute;
-  left: 0;
-  top: 0;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
 
-  >div:first-child {
-    height: 100%;
-    width: 100%;
-  }
+
 }
 
 .fullBody {

@@ -8,6 +8,7 @@ module.exports = {
       unitPrecision: 5,
       propList: ['*'],
       exclude: /download/,
+      selectorBlackList:['.tabbar_page','.fullPage']
     }),
   ],
 };

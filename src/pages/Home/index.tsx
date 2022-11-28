@@ -6,6 +6,7 @@ import KeepAlive from 'react-activation'
 import BasicTabs from '@/components/BasicTabs';
 import type { TabsItemType } from '@/components/BasicTabs/type'
 import Nav from '@/components/NavBar'
+import { setAuth, getAuth } from '@/utils/index';
 
 const Home = () => {
   const tabsItem: TabsItemType[] = [
@@ -30,7 +31,11 @@ const Home = () => {
       key: 'home_goodReply',
     }
   ]
-
+  useEffect(() => {
+    setTimeout(() => {
+      document.documentElement.scrollTop = getAuth('scroll')
+    }, 200)
+  }, [])
   return (
     <div>
       {/* <Header /> */}

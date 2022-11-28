@@ -9,26 +9,15 @@ interface NavTitleType {
     title?: string
     type?: string
 }
-
 const Nav: FC<NavTitleType> = (props) => {
-    // const nav = useNavigate();
-    // const back = () => {
-    //     nav(-1)
-    // }
-    // const right = (
-    //     <div style={{ fontSize: 24 }}>
-    //         <Space style={{ '--gap': '16px' }}>
-    //             <MoreOutline />
-    //         </Space>
-    //     </div>
-    // )
     const download = () => {
-        
         const ua = navigator.userAgent.toLowerCase();
         // 微信中打开
         // @ts-ignore
         if (ua.match(/MicroMessenger/i) && ua.match(/MicroMessenger/i) == "micromessenger") {
-            window.location.href = "../../../download/index.html";
+            window.location.href = "../../../download/index.html?from=wx";
+        } else {
+            window.location.href = "../../../download/index.html?from=other";
         }
     }
     return (
