@@ -1,6 +1,6 @@
 
 import { memo, useEffect } from 'react';
-import KeepAlive from 'react-activation'
+import { KeepAlive } from 'react-activation'
 // import styles from './index.module.less'
 // import Header from '@/components/Header'
 import BasicTabs from '@/components/BasicTabs';

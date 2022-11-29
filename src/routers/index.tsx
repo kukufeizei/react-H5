@@ -9,6 +9,7 @@ import HomeIcon from '@/assets/images/tabviews-icon/home.png'
 import MessageIcon from '@/assets/images/tabviews-icon/message.png'
 import MineIcon from '@/assets/images/tabviews-icon/mine.png'
 
+const basePath = `${import.meta.env.VITE_BASE_PATH}`
 
 const Mine = lazy(() => import(/* chunkName: "Search" */ '@/pages/Mine'));
 const Message = lazy(() => import(/* chunkName: List */ '@/pages/Message'));
@@ -25,7 +26,7 @@ const NoFound = lazy(
 );
 export const TabBarList: White.RouteTabBar[] = [
   {
-    path: '/',
+    path: `${basePath}`,
     component: Home,
     icon: HomeIcon,
     activeIcon: HomeIconActive,
@@ -33,7 +34,7 @@ export const TabBarList: White.RouteTabBar[] = [
     title: '',
   },
   {
-    path: '/message',
+    path: `${basePath}message`,
     component: Message,
     icon: MessageIcon,
     activeIcon: MessageIconActive,
@@ -41,7 +42,7 @@ export const TabBarList: White.RouteTabBar[] = [
     title: '',
   },
   {
-    path: '/mine',
+    path: `${basePath}mine`,
     component: Mine,
     icon: MineIcon,
     activeIcon: MineIconActive,
@@ -52,25 +53,25 @@ export const TabBarList: White.RouteTabBar[] = [
 
 const routes: White.RouteConfig[] = [
   {
-    path: '/',
+    path: `${basePath}`,
     component: Index,
     tabBars: TabBarList,
     cache: true
   },
   {
-    path: '/details/:timeline_id',
+    path: `${basePath}details/:timeline_id`,
     component: QuestionDetails,
   },
   {
-    path: '/comment/:comment_id',
+    path: `${basePath}comment/:comment_id`,
     component: CommentDetails,
   },
   {
-    path: '/user/:s_user_id',
+    path: `${basePath}user/:s_user_id`,
     component: UserIndex,
   },
   {
-    path: '/entry/:term_id',
+    path: `${basePath}entry/:term_id`,
     component: Entry,
   },
   {

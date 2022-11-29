@@ -1,5 +1,3 @@
-// 基本路径
-export const VITE_BASE_PATH = '/';
 // 应用名称
 export const VITE_APP_TITLE = 'Vite React App';
 // 开启包依赖分析 可视化

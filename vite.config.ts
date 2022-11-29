@@ -2,7 +2,7 @@ import proxy from './config/proxy';
 import { resolve } from 'path';
 import type { ConfigEnv, UserConfig } from 'vite';
 import { loadEnv } from 'vite';
-import { VITE_DROP_CONSOLE, VITE_BASE_PATH } from './config/constant';
+import { VITE_DROP_CONSOLE } from './config/constant';
 import { createVitePlugins } from './config/plugins';
 import { themeVariables } from './config/theme';
 
@@ -15,7 +15,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   return {
     root: process.cwd(),
     publicDir: 'public',
-    base: VITE_BASE_PATH,
+    base: `${env.VITE_BASE_PATH}`,
     plugins: createVitePlugins(mode, isBuild),
     css: {
       modules: {

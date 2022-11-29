@@ -20,6 +20,7 @@ import { entryCommentListApi, entryNewsQuestionListApi, entryNewsGoodsListApi, e
 import { setAuth, getAuth } from '@/utils/index';
 import useWindowSize from '@/hooks/useWindoSize'
 
+const basePath = `${import.meta.env.VITE_BASE_PATH}`
 
 const BasicTabs: FC<PropsTypes> = (props) => {
     const userIdParams = useParams()
@@ -130,7 +131,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
             return (
                 <p className={styles.term_name} onClick={() => {
                     setAuth('entry', ele.term_name)
-                    nva(`/entry/${ele.term_id}`)
+                    nva(`${basePath}entry/${ele.term_id}`)
                 }}>{ele.term_name}</p>
             )
         } else {
@@ -262,14 +263,14 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                                                     ele.image_list ?
                                                         <Image fit='cover'
                                                             onClick={() => {
-                                                                nva(`/details/${ele.timeline_id}`)
+                                                                nva(`${basePath}details/${ele.timeline_id}`)
                                                             }}
                                                             src={getRealImgUrl(ele.image_list[0].url as string)}
                                                             width={getImgWidth()}
                                                             height={getImgHeight(ele.image_list[0].width as number, ele.image_list[0].height as number)}
                                                         />
                                                         : <p onClick={() => {
-                                                            nva(`/details/${ele.timeline_id}`)
+                                                            nva(`${basePath}details/${ele.timeline_id}`)
                                                         }}>{ele.text}</p>
                                                 }
 

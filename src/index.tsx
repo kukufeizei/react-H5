@@ -12,14 +12,12 @@ window.onresize = () => {
   setWindowHeight();
 };
 
-
-
 render(
-  <AliveScope>
-    <Provider store={store}>
+  <Provider store={store}>
+    <AliveScope>
       <App />
-    </Provider>
-  </AliveScope>
+      </AliveScope>
+  </Provider>
   ,
   document.getElementById('root'),
 );

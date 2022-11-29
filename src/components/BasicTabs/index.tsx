@@ -20,6 +20,8 @@ import { newListApi } from '@/api/route'
 import { setAuth, getAuth } from '@/utils/index';
 import useWindowSize from '@/hooks/useWindoSize'
 
+const basePath = `${import.meta.env.VITE_BASE_PATH}`
+
 const BasicTabs: FC<PropsTypes> = (props) => {
     const [list, setList] = useState<ItemType[]>([])
     const [macy, setMacy] = useState<any>(null)
@@ -95,7 +97,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
             <p className={styles.term_name} onClick={() => {
                 setAuth('scroll', document.documentElement.scrollTop)
                 setAuth('entry', ele.term_name)
-                nva(`/entry/${ele.term_id}`)
+                nva(`${basePath}entry/${ele.term_id}`)
             }}>{ele.term_name}</p>
         )
     }
@@ -138,7 +140,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                                                     <Image fit='cover'
                                                         onClick={() => {
                                                             setAuth('scroll', document.documentElement.scrollTop)
-                                                            nva(`/details/${ele.timeline_id}`)
+                                                            nva(`${basePath}details/${ele.timeline_id}`)
                                                         }}
                                                         src={getRealImgUrl(ele.image_list[0].url as string)}
                                                         width={getImgWidth()}
@@ -146,7 +148,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                                                     />
                                                     : <p onClick={() => {
                                                         setAuth('scroll', document.documentElement.scrollTop)
-                                                        nva(`/details/${ele.timeline_id}`)
+                                                        nva(`${basePath}details/${ele.timeline_id}`)
                                                     }}>{ele.text}</p>
                                             }
 

@@ -18,6 +18,8 @@ import { randomColor, setSticky } from '@/utils';
 import { useSelector } from 'react-redux'
 import { userTimelineListApi, userCommentListApi } from '@/api/route'
 
+const basePath = `${import.meta.env.VITE_BASE_PATH}`
+
 const BasicTabs: FC<PropsTypes> = (props) => {
     const userIdParams = useParams()
     const [tabs, setTabs] = useState<string>('mine_question')
@@ -190,7 +192,7 @@ const BasicTabs: FC<PropsTypes> = (props) => {
                                     list.map((ele, i) => {
                                         return (
                                             <li key={i} onClick={() => {
-                                                nva(`/details/${ele.timeline_id}`)
+                                                nva(`${basePath}details/${ele.timeline_id}`)
                                             }}>
 
                                                 {

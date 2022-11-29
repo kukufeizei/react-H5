@@ -15,6 +15,8 @@ import MultiImageViewer from '@/components/MultiImageViewer';
 import default_face from '@/assets/images/avatar.png'
 import useWindowSize from '@/hooks/useWindoSize'
 
+const basePath = `${import.meta.env.VITE_BASE_PATH}`
+
 const Details = () => {
   const { getRealImgUrl } = useAliOssSystem();
   const [display, setDisplay] = useState(true)
@@ -107,7 +109,7 @@ const Details = () => {
           <Grid columns={10} >
             <Grid.Item span={6}>
               <div className='flex justify-start'>
-                <div className={styles.maright} onClick={() => { nva(`/user/${data.s_user_id}`) }}>
+                <div className={styles.maright} onClick={() => { nva(`${basePath}user/${data.s_user_id}`) }}>
                   {
                     <Avatar
                       src={getRealImgUrl(data.face_url as string) as string}
@@ -164,7 +166,7 @@ const Details = () => {
                     <Grid columns={10} >
                       <Grid.Item span={6}>
                         <div className='flex justify-start'>
-                          <div className={styles.maright} onClick={() => { nva(`/user/${item.s_user_id}`) }}>
+                          <div className={styles.maright} onClick={() => { nva(`${basePath}user/${item.s_user_id}`) }}>
                             <Avatar src={getRealImgUrl(item.face_url as string) as string} style={{ '--size': '40px', '--border-radius': '40px' }} />
                           </div>
                           <div>
@@ -183,7 +185,7 @@ const Details = () => {
                     </Grid>
                   </div>
                   <div className={styles.reply_details} onClick={() => {
-                    nva(`/comment/${item.comment_id}`)
+                    nva(`${basePath}comment/${item.comment_id}`)
                     setAuth('commit', JSON.stringify(item))
                   }}>
                     <p style={{ marginBottom: '10px' }}>{item.text || ''}</p>
