@@ -14,7 +14,7 @@ let MultiImageViewer: FC<MutiPropTypes> = (props: any, ref: any) => {
 
     useEffect(() => {
         const myList: any = []
-        props.list.forEach((item) => {
+        props.list.forEach((item: any) => {
             myList.push(getRealImgUrl(item as string))
         })
 
@@ -25,7 +25,7 @@ let MultiImageViewer: FC<MutiPropTypes> = (props: any, ref: any) => {
         // set 就是暴露给父组件的方法, newVal是父组件传递的参数
         set: (newVal: boolean) => {
             setVisible(newVal)
-        }
+        },
     }))
 
     return (
@@ -33,7 +33,7 @@ let MultiImageViewer: FC<MutiPropTypes> = (props: any, ref: any) => {
             <ImageViewer.Multi
                 images={list}
                 visible={visible}
-                defaultIndex={0}
+                defaultIndex={props.defaultIndex || 0}
                 onClose={() => {
                     setVisible(false)
                 }}

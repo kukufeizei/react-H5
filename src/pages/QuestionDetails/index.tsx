@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { createRef, memo, useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'
-import { Divider, Grid, Avatar, Image, InfiniteScroll } from 'antd-mobile'
+import { Divider, Grid, Avatar, Image, InfiniteScroll, ImageViewer } from 'antd-mobile'
 import { LikeOutline } from 'antd-mobile-icons'
 import { questionDetailsApi } from '@/api/route'
 import { getAuth, setAuth } from '@/utils/index';
@@ -21,6 +21,7 @@ const Details = () => {
   const [list, setList] = useState<ReplyListType[]>([])
   const [data, setData] = useState({} as QuestionDataType)
   const [hasMore, setHasMore] = useState(false)
+  const [visible, setVisible] = useState(false)
   const { width } = useWindowSize()
   const childRef = useRef<any>(null)
   const itemsRef = useRef<any>([])
@@ -83,14 +84,15 @@ const Details = () => {
   }
 
   // 点击预览图片
-  const handleClickImg = (e: any, type: string, index?: number,) => {
+  const handleClickImg = (e: any, type: string, index?: number, i?: number) => {
     const ev = e || window.event
     ev.stopPropagation()
     if (type === 'title') {
       childRef.current!.set(true);
       return
     }
-    itemsRef.current[index as number]!.set(true);
+
+    itemsRef.current[index! * 3 + i!]!.set(true);
   }
 
   return (
@@ -185,22 +187,27 @@ const Details = () => {
                     setAuth('commit', JSON.stringify(item))
                   }}>
                     <p style={{ marginBottom: '10px' }}>{item.text || ''}</p>
-                    <div onClick={(e) => handleClickImg(e, 'details', index)}>
+                    <div >
                       {
 
-                        JSON.stringify(item.image_list) && item.image_list.map((e, i) => (
-                          <Image key={i}
-                            src={getRealImgUrl(e.url as string) as string}
-                            className={styles.imgs}
-                            fit='cover'
-                            width={getImgWidth()}
-                            height={getImgHeight(e.width as number, e.height as number)}
-                          />
-                        ))
-                      }
-                      {item.image_list && <MultiImageViewer list={item.image_list.map((item) => item.url)} ref={(el: any) => { itemsRef.current[index] = el }} />}
+                        JSON.stringify(item.image_list) && item.image_list.map((ele, i) => (
+                          <>
+                            <Image key={i}
+                              src={getRealImgUrl(ele.url as string) as string}
+                              onClick={(e) => handleClickImg(e, 'details', index, i)}
+                              className={styles.imgs}
+                              fit='cover'
+                              width={getImgWidth()}
+                              height={getImgHeight(ele.width as number, ele.height as number)}
+                            />
+                            <MultiImageViewer defaultIndex={i} list={item.image_list.map((item) => item.url)} ref={(el: any) => { itemsRef.current[3 * index + i] = el }} />
 
+                          </>
+                        ))
+
+                      }
                     </div>
+
                     {/* 二级回复 */}
                     {item.secondary_comment_list &&
                       item.secondary_comment_list.map((item, index) => {
