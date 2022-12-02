@@ -28,16 +28,16 @@ const useSwitch = () => {
     [-1, -1],
   );
   if (activeIndex !== -1 && oldIndex !== -1) {
-    className.current =
-      activeIndex > oldIndex
-        ? `forward-from-${TabBarList[activeIndex].sceneMode || 'right'}`
-        : `back-to-${TabBarList[oldIndex].sceneMode || 'right'}`;
+    // className.current =
+    //   activeIndex > oldIndex
+    //     ? `forward-from-${TabBarList[activeIndex].sceneMode || 'right'}`
+    //     : `back-to-${TabBarList[oldIndex].sceneMode || 'right'}`;
   } else {
-    if (action === 'PUSH') {
-      className.current = `forward-from-${routeSceneMode || 'right'}`;
-    } else if (action === 'POP') {
-      className.current = `back-to-${oldMode.current?.mode || 'right'}`;
-    }
+    // if (action === 'PUSH') {
+    //   className.current = `forward-from-${routeSceneMode || 'right'}`;
+    // } else if (action === 'POP') {
+    //   className.current = `back-to-${oldMode.current?.mode || 'right'}`;
+    // }
   }
 
   useEffect(() => {
