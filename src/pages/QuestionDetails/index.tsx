@@ -25,7 +25,7 @@ const Details = () => {
   const [hasMore, setHasMore] = useState(false)
   const [visible, setVisible] = useState(false)
   const { width } = useWindowSize()
-  const childRef = useRef<any>(null)
+  const childRef = useRef<any>([])
   const itemsRef = useRef<any>([])
   const params = useParams()
   const nva = useNavigate();
@@ -90,7 +90,7 @@ const Details = () => {
     const ev = e || window.event
     ev.stopPropagation()
     if (type === 'title') {
-      childRef.current!.set(true);
+      childRef.current[i]!.set(true);
       return
     }
 
@@ -136,20 +136,24 @@ const Details = () => {
         </div>
         {
           JSON.stringify(data.image_list) && (
-            <div className={styles.mt20} onClick={(e) => handleClickImg(e, 'title')} >
+            <div className={styles.mt20}  >
               {
                 data.image_list.map((e, i) => (
-                  <Image
-                    key={i}
-                    src={getRealImgUrl(e.url as string) as string}
-                    className={styles.imgs}
-                    fit='cover'
-                  // width={getImgWidth()}
-                  // height={getImgHeight(e.width as number, e.height as number)}
-                  />
+                  <>
+                    <Image
+                      key={i}
+                      src={getRealImgUrl(e.url as string) as string}
+                      className={styles.imgs}
+                      fit='cover'
+                      onClick={(e) => handleClickImg(e, 'title',0, i)}
+                    // width={getImgWidth()}
+                    // height={getImgHeight(e.width as number, e.height as number)}
+                    />
+                    <MultiImageViewer defaultIndex={i} list={data.image_list.map((item) => item.url)} ref={(el: any) => { childRef.current[i] = el }} />
+                  </>
                 ))
               }
-              <MultiImageViewer list={data.image_list.map((item) => item.url)} ref={childRef} />
+              {/* <MultiImageViewer list={data.image_list.map((item) => item.url)} ref={childRef} /> */}
               <Divider />
             </div>
           )
