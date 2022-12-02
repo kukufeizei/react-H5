@@ -16,11 +16,9 @@ const Nav: FC<NavTitleType> = (props) => {
         // 微信中打开
         // @ts-ignore
         if (ua.match(/MicroMessenger/i) && ua.match(/MicroMessenger/i) == "micromessenger") {
-            // window.location.href = "../../../download/index.html?from=wx";
-            window.location.href = 'https://www.souci.blephant.com/app/intro?from=wx'
+            window.location.href = "../../../download/index.html?from=wx";
         } else {
-            window.location.href = 'https://www.souci.blephant.com/app/intro?from=other'
-            // window.location.href = "../../../download/index.html?from=other";
+            window.location.href = "../../../download/index.html?from=other";
         }
     }
     return (
